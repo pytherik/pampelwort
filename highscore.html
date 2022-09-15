@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="css/style.css" rel="stylesheet" type="text/css">
+	<link href="images/icons/favicon.ico" rel="icon">
+	<title>Pampelwort</title>
+</head>
+<body>
+	<nav class="navbar">
+		<div class="nav-items">
+			<a href="statistics.html" ><img class="nav-icon-bg" src="images/icons/stats2.png" alt=""></a>
+		</div>
+		<div class="nav-items">
+			<ul class="link">
+				<li class="score"><a href="highscore.html"><img class="nav-icon" src="images/icons/score2.png" alt=""></a></li>
+				<li><a href="index.html"><img class="nav-icon" src="images/icons/refresh2.png" alt=""></a></li>
+				<li id="manual"><img class="nav-icon" src="images/icons/help3.png" alt=""></li>
+			</ul>
+		</div>
+		<div class="nav-items">
+			<img class="nav-icon-bg logout" src="images/icons/logout2.png" alt="">
+		</div>
+	</nav>
+
+	<div id="anonymous">
+		<div class="anonymous">
+			<img src="images/anonym.jpg" alt="">
+		</div>
+	</div>
+
+	<div  id="scoring" class="container score-container">
+		<div class="ranking rank1"></div>
+		<div class="ranking rank2"></div>
+		<div class="ranking rank3"></div>
+		<div class="ranking rank4"></div>
+		<div class="ranking rank5"></div>
+		<div class="ranking rank6"></div>
+		<div class="ranking rank7"></div>
+		<div class="ranking rank8"></div>
+		<div class="ranking rank9"></div>
+		<div class="ranking rank10"></div>
+	</div>
+ 
+	<div class="manual-container">
+		<div class="man-row">
+			<h1 class="header">Spielregeln</h1>
+		</div>
+			<p class="text">
+				Jedes neue Wort hat eine <strong>zufällige</strong> Anzahl
+				von <strong>vier bis acht</strong> Buchstaben. Du hast <strong>sechs Versuche</strong>
+				um das Rätsel zu lösen. Folgende <strong>Hilfen</strong> führen dich
+				hoffentlich zum Ziel:
+			</p>
+		<div class="man-row nope">
+			<h2>Graue Buchstaben</h2>
+			<h2>Nicht dabei!</h2>
+		</div>
+		<div class="man-row okay">
+			<h2>Gelbe Buchstaben</h2>
+			<h2>Falsche Stelle!</h2>
+		</div>
+		<div class="man-row exact">
+			<h2>Grüne Buchstaben</h2>
+			<h2>Genau richtig!</h2>
+		</div>
+		<div class="man-row"></div>
+		</div>
+	</div>
+	
+	
+	
+	<script src="js/jquery-3.6.0.min.js"></script>
+	<script src="js/wordsArray.js"></script>
+	<script src="js/app.js"></script>
+</body>
+</html>

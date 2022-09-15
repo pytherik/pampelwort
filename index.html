@@ -1,0 +1,247 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="css/style.css" rel="stylesheet" type="text/css">
+	<link href="images/icons/favicon.ico" rel="icon">
+	<title>Pampelwort</title>
+</head>
+<body>
+	<nav class="navbar">
+		<div class="nav-items">
+			<a href="statistics.html" ><img class="nav-icon-bg hideable" src="images/icons/stats2.png" alt=""></a>
+		</div>
+		<div class="nav-items">
+			<ul class="link">
+				<li class="score"><a href="highscore.html"><img class="nav-icon-bg hideable" src="images/icons/score2.png" alt=""></a></li>
+				<li><a href="index.html"><img class="nav-icon-bg" src="images/icons/refresh2.png" alt=""></a></li>
+				<li id="manual"><img class="nav-icon-bg" src="images/icons/help3.png" alt=""></li>
+				<li id="settings"><img class="nav-icon-bg" src="images/icons/settings.png"></li>
+			</ul>
+		</div>
+		<div class="nav-items">
+			<img class="nav-icon-bg logout" src="images/icons/logout2.png" alt="">
+		</div>
+	</nav>
+	<!-- Game Grid -->
+	<div class="container">
+		<span class="player-settings">Lang: de1 | Buchstaben: rand</span>
+		<h3 class="player">?</h3>
+		<div class="row first-row">
+			<div class="letter-box lb1 letter0"></div>
+			<div class="letter-box lb1 letter1"></div>
+			<div class="letter-box lb1 letter2"></div>
+			<div class="letter-box lb1 letter3"></div>
+			<div class="letter-box lb1 letter4"></div>
+			<div class="letter-box lb1 letter5"></div>
+			<div class="letter-box lb1 letter6"></div>
+			<div class="letter-box lb1 letter7"></div>
+		</div>
+		<div class="row">
+			<div class="letter-box lb2 letter0"></div>
+			<div class="letter-box lb2 letter1"></div>
+			<div class="letter-box lb2 letter2"></div>
+			<div class="letter-box lb2 letter3"></div>
+			<div class="letter-box lb2 letter4"></div>
+			<div class="letter-box lb2 letter5"></div>
+			<div class="letter-box lb2 letter6"></div>
+			<div class="letter-box lb2 letter7"></div>
+		</div>
+		<div class="row">
+			<div class="letter-box lb3 letter0"></div>
+			<div class="letter-box lb3 letter1"></div>
+			<div class="letter-box lb3 letter2"></div>
+			<div class="letter-box lb3 letter3"></div>
+			<div class="letter-box lb3 letter4"></div>
+			<div class="letter-box lb3 letter5"></div>
+			<div class="letter-box lb3 letter6"></div>
+			<div class="letter-box lb3 letter7"></div>
+		</div>
+		<div class="row">
+			<div class="letter-box lb4 letter0"></div>
+			<div class="letter-box lb4 letter1"></div>
+			<div class="letter-box lb4 letter2"></div>
+			<div class="letter-box lb4 letter3"></div>
+			<div class="letter-box lb4 letter4"></div>
+			<div class="letter-box lb4 letter5"></div>
+			<div class="letter-box lb4 letter6"></div>
+			<div class="letter-box lb4 letter7"></div>
+		</div>
+		<div class="row">
+			<div class="letter-box lb5 letter0"></div>
+			<div class="letter-box lb5 letter1"></div>
+			<div class="letter-box lb5 letter2"></div>
+			<div class="letter-box lb5 letter3"></div>
+			<div class="letter-box lb5 letter4"></div>
+			<div class="letter-box lb5 letter5"></div>
+			<div class="letter-box lb5 letter6"></div>
+			<div class="letter-box lb5 letter7"></div>
+		</div>
+		<div class="row">
+			<div class="letter-box lb6 letter0"></div>
+			<div class="letter-box lb6 letter1"></div>
+			<div class="letter-box lb6 letter2"></div>
+			<div class="letter-box lb6 letter3"></div>
+			<div class="letter-box lb6 letter4"></div>
+			<div class="letter-box lb6 letter5"></div>
+			<div class="letter-box lb6 letter6"></div>
+			<div class="letter-box lb6 letter7"></div>
+		</div>
+		<div class="keyboard-container">
+			<div class="row">
+				<div class="letter-box abc q">Q</div>
+				<div class="letter-box abc w">W</div>
+				<div class="letter-box abc e">E</div>
+				<div class="letter-box abc r">R</div>
+				<div class="letter-box abc t">T</div>
+				<div class="letter-box abc z">Z</div>
+				<div class="letter-box abc u">U</div>
+				<div class="letter-box abc i">I</div>
+				<div class="letter-box abc o">O</div>
+				<div class="letter-box abc p">P</div>
+				<div class="letter-box abc ü">Ü</div>
+			</div>
+			<div class="row">
+				<div class="letter-box abc a">A</div>
+				<div class="letter-box abc s">S</div>
+				<div class="letter-box abc d">D</div>
+				<div class="letter-box abc f">F</div>
+				<div class="letter-box abc g">G</div>
+				<div class="letter-box abc h">H</div>
+				<div class="letter-box abc j">J</div>
+				<div class="letter-box abc k">K</div>
+				<div class="letter-box abc l">L</div>
+				<div class="letter-box abc ö">Ö</div>
+				<div class="letter-box abc ä">Ä</div>
+			</div>
+			<div class="row">
+				<div class="letter-box abc back"><img src="images/icons/back1.png" alt=""></div>
+				<div class="letter-box abc y">Y</div>
+				<div class="letter-box abc x">X</div>
+				<div class="letter-box abc c">C</div>
+				<div class="letter-box abc v">V</div>
+				<div class="letter-box abc b">B</div>
+				<div class="letter-box abc n">N</div>
+				<div class="letter-box abc m">M</div>
+				<div class="letter-box abc enter"><img src="images/icons/enter.png" alt=""></div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="success-container win">
+		<div class="row">
+			<h1 id="win" class="header">Gut gemacht!</h1>
+		</div>
+		<div class="row">
+			<h2 id="plus">Du kriegst Punkte!</h2>
+		</div>
+		<div class="row">
+			<p class="text">zum Weiterspielen Taste drücken<p>
+		</div>
+	</div>
+
+
+
+	<div class="success-container lose">
+		<div class="row">
+			<h1 id="lose" class="header">Sone Kacke!</h1>
+		</div>
+		<div class="row">
+			<h2 id="minus">Du kriegst Abzug!</h2>
+		</div>
+		<div class="row">
+			<p class="text">zum Weiterspielen Taste drücken<p>
+		</div>
+	</div>
+	
+	
+	
+	<div class="manual-container">
+		<div class="man-row">
+			<h1 class="header">Spielregeln</h1>
+		</div>
+			<p class="text">
+				Jedes neue Wort hat eine <strong>zufällige</strong> Anzahl
+				von <strong>vier bis acht</strong> Buchstaben. Du hast <strong>sechs Versuche</strong>
+				um das Rätsel zu lösen. Folgende <strong>Hilfen</strong> führen dich
+				hoffentlich zum Ziel:
+			</p>
+		<div class="man-row nope">
+			<h2>Graue Buchstaben</h2>
+			<h2>Nicht im Wort!</h2>
+		</div>
+		<div class="man-row okay">
+			<h2>Gelbe Buchstaben</h2>
+			<h2>Falsche Stelle!</h2>
+		</div>
+		<div class="man-row exact">
+			<h2>Grüne Buchstaben</h2>
+			<h2>Genau richtig!</h2>
+		</div>
+		<!-- <div class="man-row"></div> -->
+	</div>
+
+
+	<div class="login-modal">
+		<div class="register-container">
+			<div class="row-top">
+				<form id="playNow">
+					<button class="btn" type="submit" name="playNow">anonym spielen</button>
+				</form>
+			</div>
+			
+			<div id="login" class="register-row">
+				<h2 class="reg-header">Log dich ein</h2>
+				<form id="login-form">
+					<p>
+						<label class="log" for="loginName">Spielername</label>
+						<input id="loginName" type="text" name="username">
+						<span id="errorMessage" class="errorMessage"></span><br/>
+						<span id="errorMessage2" class="errorMessage"></span>
+					</p>
+					<button id="login-btn" class="btn" type="submit" name="loginButton">LOGIN</button>
+				</form>
+			</div>			
+		</div>
+	</div>
+	
+	<div class="settings-modal">
+		<div class="settings-container">
+			<div class="settings-header">
+				<h2>Einstellungen</h2>
+			</div>
+			<form id="settings-form">
+				<div class="form-settings">
+					<div class="lang-select">
+						<label class="label-select" for="lang-select">Wörterbuch</label>
+						<select id="lang-select" name="lang">
+						</select>
+					</div>
+					<div>	
+						<label class="label-select" for="num-letter">Buchstaben</label>
+						<select name="num-letter" id="num-letter">
+							<option name="default" value="0" selected>Zufall</option>
+						</select>
+					</div>
+				</div>
+				<div class="buttons-container">
+					<div>
+						<button id="settings-submit" type="submit" class="settings-button exact">Speichern</button>
+					</div>
+					<div>
+						<button id="settings-abort" class="settings-button lose">Abbruch</button>
+					</div>
+				</div>
+				</div>
+			</form>
+		</div>
+	
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+	<script src="js/jquery-3.6.0.min.js"></script>
+	<script src="js/wordsArray.js"></script>
+	<script src="js/app.js"></script>
+</body>
+</html>

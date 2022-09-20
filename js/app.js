@@ -20,7 +20,8 @@ const maxLength = 8;
 const myLangs = {
 	de1: "de1",
 	de2: "de2",
-	en1: "en1"
+	en1: "en1",
+	lat: "lat"
 }
 
 

@@ -4,7 +4,7 @@ This is a browser based word guessing game in the languages english, german or l
 I recommend using **chrome-browser** to make sure data is stored correctly for  
 statistical purpose (unfixed issues with firefox, untested in safari, opera, ie and edge)  
 
-### [Play Game](https://pytherik.github.io/pampelwort/statistics.html)
+### [Play Game](https://pytherik.github.io/pampelwort)
 
 Login  
 ![01_login_w600](https://user-images.githubusercontent.com/62411607/194481078-51af127d-f2f6-4367-ad97-a669b56b71f5.png)  

@@ -1,5 +1,5 @@
 # Pampelwort
-
+**strong**
 This is a browser based word guessing game in the languages english, german or latin.  
 I recommend using **chrome-browser** to make sure data is stored correctly for  
 statistical purpose (unfixed issues with firefox, untested in safari, opera, ie and edge)  

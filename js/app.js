@@ -306,13 +306,7 @@ function game() {
 	
 	// Occurencies of letter in word (to avoid bad colorization)
 	function countOccurency(word, letter) {
-		let num = 0;
-		for (const item in word) {
-			if (word[item] === letter) {
-				num++;
-			}
-		}
-		return num;
+		return word.filter(l => l === letter).length;
 	}
 	
 	// Game Over

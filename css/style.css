@@ -6,23 +6,13 @@
 	padding: 0;
 }
 
-:root {
-	--main-color: #333;
-	/*--main-color: #827397;*/
-	--letter-empty-color: #111;
-	--pampel-grid-color: #555;
-	--player-settings-color: #aaa;
-	--abc-hover-color: #555;
-	--score-container-color: #222;
+::-webkit-scrollbar {
+	width:	0;
 }
 
-::-webkit-scrollbar {
- width:	0;
- }
-
 body {
-	background-color: var(--main-color);
-	/*background-image: url("../images/cubes01-blur.png");*/
+	background-color: #827397;
+	background-image: url("../images/cubes01-blur.png");
 	background-size: cover;
 	color: #E9D5DA;
 	font-family: "Poppins";
@@ -61,9 +51,8 @@ body {
 .navbar {
 	width: 100%;
 	height: auto;
-	background: #555;
-	/*background-image: linear-gradient(var(--main-color, #4d4c7d);*/
-	/*box-shadow: inset 0 1.5em 0.25em -1.4em #ffffff77, 0 .8em .8em 0 #00000055;*/
+	background-image: linear-gradient(#827397, #4d4c7d);
+	box-shadow: inset 0 1.5em 0.25em -1.4em #ffffff77, 0 .8em .8em 0 #00000055;
 	/* border-bottom: 1px solid #ffffff33; */
 	display: flex;
 	justify-content: space-between;
@@ -98,8 +87,8 @@ a {
 	margin: .5em 0;
 	padding: 0 .5em;
 	border-radius: .3em;
-	/*background-color: #E9D5DA37;*/
-	color: var(--player-settings-color);
+	background-color: #E9D5DA37;
+	color: #000;
 	text-shadow: 1px 1px 3px #fff;
 }
 
@@ -118,10 +107,7 @@ a {
 	width: 2.1em;
 }
 
-.hide {
-	visibility: hidden;
-}
-.nav-icon:hover, 
+.nav-icon:hover,
 .nav-icon-bg:hover {
 	cursor: pointer;
 	animation: turnaround .5s;
@@ -131,8 +117,8 @@ a {
 	from {
 		transform: rotate(0deg);
 	} to {
-		transform: rotate(360deg);
-	}
+		  transform: rotate(360deg);
+	  }
 }
 
 .nav-icon-sm {
@@ -159,17 +145,17 @@ a {
 }
 .score-container,
 .statistics-container {
-	background-color: var(--score-container-color);
+	background-color: #4D4C7D99;
 	margin-top: 1%;
 	padding: 2%;
 	border-radius: 2%;
-  width: 60vw; 
+	width: 60vw;
 	padding: 50px;
 	align-items: start;
 	height: 85vh;
 	border-radius: 2%;
 	margin-top: 2%;
-} 
+}
 
 .manual-container {
 	cursor: pointer;
@@ -257,10 +243,10 @@ a {
 	from {
 		opacity: 0;
 	} to {
-		opacity: .4;
-	}
+		  opacity: .4;
+	  }
 }
-	
+
 /* P L A Y G R I D */
 
 .row {
@@ -270,13 +256,13 @@ a {
 }
 
 .letter-box {
-	background-color: var(--letter-empty-color);
+	background-color: #363062;
 	text-align: center;
 	align-items: center;
 	width: 75px;
 	height: 75px;
-	border: 3px solid var(--pampel-grid-color);
-	text-shadow: 2px 2px 2px var(--main-color);
+	border: 3px solid #827397;
+	text-shadow: 2px 2px 2px #827397;
 	font-size: 2.6rem;
 	font-weight: 900;
 }
@@ -284,8 +270,8 @@ a {
 .checked {
 	width: 69px;
 	height: 69px;
-	box-shadow: inset 0 1.5em 0.25em -1.4em #ffffff22, 0 .8em .8em 0 #00000055;
-	border: none; 
+	box-shadow: inset 0 1.5em 0.25em -1.4em #ffffff77, 0 .8em .8em 0 #00000055;
+	border: none;
 	margin: 3px;
 }
 
@@ -333,10 +319,10 @@ a {
 }
 
 .abc {
-	background-color: var(--main-color);
+	background-color: #827397;
 	/* box-shadow: 2px 2px 10px #00000055; */
-	box-shadow: inset 0 1.5em 0.25em -1em #ffffff22, 0 .8em .8em 0 #00000055;
-	text-shadow: 1px 1px #00000099;		
+	box-shadow: inset 0 1.5em 0.25em -1em #ffffff44, 0 .8em .8em 0 #00000055;
+	text-shadow: 1px 1px #00000099;
 	text-align: center;
 	align-items: center;
 	margin: 2px;
@@ -358,7 +344,7 @@ a {
 }
 
 .abc:hover {
-	background-color: var(--abc-hover-color);
+	background-color: #4d4c7dcc;
 	cursor: pointer;
 	color: #e9d5da;
 }
@@ -370,7 +356,7 @@ a {
 
 .abc.enter img {
 	width: 27px;
-	margin-top: 10px;	
+	margin-top: 10px;
 }
 
 
@@ -401,7 +387,7 @@ a {
 }
 
 
-/* S T A T I S T I C S */ 
+/* S T A T I S T I C S */
 
 
 .rank {
@@ -615,8 +601,8 @@ select {
 	from {
 		opacity: 0;
 	} to {
-		opacity: 1;
-	}
+		  opacity: 1;
+	  }
 }
 
 .register-row {
@@ -666,7 +652,7 @@ input[type="password"] {
 	color: #e9d5da;
 	background-color: transparent;
 	border: 1px solid #6d8874;
-  border-radius: 5px;	
+	border-radius: 5px;
 }
 
 .btn:hover {
@@ -676,15 +662,15 @@ input[type="password"] {
 
 .errorMessage {
 	font-size: 1rem;
-	color: #ff8080; 
+	color: #ff8080;
 }
 
 
 
 
 
-@media screen and (max-width: 1500px) {
-	
+@media screen and (max-width: 1600px) {
+
 	.navbar {
 		/* width: 100%; */
 		/* height: 40px; */
@@ -698,22 +684,22 @@ input[type="password"] {
 	.nav-icon {
 		width: 1.2em;
 	}
-	
+
 	.nav-icon-bg {
 		width: 1.3em;
 	}
-	
+
 	.container {
 		margin-top: 0;
 		max-width: 70%;
 		height: 100vh;
 		border-radius: 0;
-	
+
 	}
 
 	.statistics-container {
 		border-radius: 0;
-		padding: 10px 25px 20px; 
+		padding: 10px 25px 20px;
 	}
 
 	.success-container {
@@ -735,33 +721,33 @@ input[type="password"] {
 		font-size: 1.8rem;
 		margin: 0 0 .5em;
 	}
-	
+
 	.text {
 		font-size: 1rem;
 		margin-top: .7em;
 	}
-		
-	.reg-header {		
+
+	.reg-header {
 		font-size: 2rem;
 		margin: 30px 0 50px;
 	}
-	
+
 	.register-container {
 		margin-top: 4%;
 	}
-	
+
 	label {
 		margin-top: 13px;
 		font-size: .7rem;
 	}
-	
+
 	.register-row input[type="text"],
 	input[type="password"] {
 		font-size: .9rem;
 		margin-top: 8px;
 		letter-spacing: 1.5px;
 	}
-	
+
 	.btn {
 		width: 200px;
 		height: 25px;
@@ -769,13 +755,13 @@ input[type="password"] {
 		font-weight: 400;
 		letter-spacing: 5px;
 		margin-top: 50px;
-		
+
 	}
-	
+
 	.errorMessage {
 		font-size: .8rem;
 	}
-	
+
 	.keyboard-container {
 		max-width: 600px;
 		margin-top: 3%;
@@ -784,17 +770,17 @@ input[type="password"] {
 	.letter-box {
 		width: 66px;
 		height: 66px;
-		border: 2px solid var(--main-color);
+		border: 2px solid #827397;
 		font-size: 2.5rem;
 		font-weight: 500;
 	}
 	.checked {
 		width: 62px;
 		height: 62px;
-		border: none; 
+		border: none;
 		margin: 2px;
 	}
-		
+
 	.abc {
 		margin: 1px;
 		width: 55px;
@@ -809,7 +795,7 @@ input[type="password"] {
 		margin-top: 8px;
 		width: 26px;
 	}
-	
+
 	.back,
 	.enter {
 		width: 88px;
@@ -843,16 +829,16 @@ input[type="password"] {
 		width: 100%;
 		padding-top: 8px;
 	}
-	
+
 	.smaller {
 		font-size: .7rem;
 	}
-	
+
 	.num {
 		margin-top: 5px;
 		font-size: .8rem;
 	}
-	
+
 	.right-column {
 		width: 60%;
 		height: 100%;
@@ -863,59 +849,59 @@ input[type="password"] {
 		align-items: center;
 	}
 
-			
+
 	.tries-bar {
 		width: 14.5%;
 		height: 70%;
 		margin: 1% 1%;
 	}
-	
+
 	.tries-bar-total {
 		width: 50%;
 		height: 70%;
 	}
-	
+
 	.perc,
 	.numTries {
 		font-size: 1rem;
 		margin-bottom: 5px;
 	}
-	
-	
+
+
 	.numTries small {
 		font-size: 0.6rem;
 	}
-	
+
 	.toggle-wordlist {
 		font-size: 1.1rem;
 		margin-top: 5px;
 	}
-	
+
 	#show-total {
 		font-size: 1.3rem;
 	}
-	
+
 	.wordlist {
 		padding: 0 10px;
 		font-size: 1rem;
 	}
-		
+
 }
 
 @media screen and (max-width: 1300px) {
-	
+
 	.navbar {
 		height: 30px;
 	}
 
-.container {
-	padding-top: 1%;
-}
+	.container {
+		padding-top: 1%;
+	}
 
 	.header {
 		font-size: 1.8rem;
 	}
-	
+
 
 	.player {
 		font-size: 1.8rem;
@@ -935,7 +921,7 @@ input[type="password"] {
 		width: 52px;
 		height: 52px;
 	}
-		
+
 	.abc {
 		width: 47px;
 		height: 47px;
@@ -951,7 +937,7 @@ input[type="password"] {
 		margin-top: 6px;
 		width: 23px;
 	}
-	
+
 	.back,
 	.enter {
 		width: 75px;
@@ -962,25 +948,25 @@ input[type="password"] {
 		font-size: 1rem;
 		margin-bottom: 5px;
 	}
-	
+
 	.numTries small {
 		font-size: 0.6rem;
 	}
-	
+
 	.toggle-wordlist {
 		font-size: 1.1rem;
 		margin-top: 5px;
 	}
-	
+
 	#show-total {
 		font-size: 1.3rem;
 	}
-	
+
 	.wordlist {
 		padding: 0 10px;
 		font-size: 1rem;
-	} 
-		
+	}
+
 }
 
 
@@ -1009,7 +995,7 @@ input[type="password"] {
 	.nav-icon {
 		width: 1.2em;
 	}
-	
+
 	.nav-icon-bg {
 		margin-top: 0;
 		width: 1.8em;
@@ -1168,7 +1154,7 @@ input[type="password"] {
 	.nav-icon {
 		width: 1.2em;
 	}
-	
+
 	.nav-icon-bg {
 		margin-top: 0;
 		width: 1.8em;
@@ -1248,7 +1234,7 @@ input[type="password"] {
 		margin-left: 1rem;
 		width: 1.2em;
 	}
-	
+
 	.nav-icon-bg {
 		margin-top: 0;
 		width: 1.8em;

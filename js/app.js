@@ -15,8 +15,6 @@ let j = 1;     // counting rounds
 const minLength = 4;
 const maxLength = 8;
 
-// chose a language
-// let langArray = lang["de1"]; //de1, de2, en1
 const myLangs = {
 	de1: "de1",
 	de2: "de2",
@@ -55,7 +53,6 @@ function startSession() {
 		console.log(users[userLoggedIn].lang)
 		langArray = lang[users[userLoggedIn].lang]
 		let num_letters = users[userLoggedIn].num_letters
-		// console.log(num_letters);
 		if (num_letters !== 0) {
 			console.log("True");
 			langArray = langArray.filter((word) => {
@@ -243,13 +240,13 @@ function game() {
 				} else {
 					$(".lb" + (j-1) + ".letter" + i).slideUp(250).addClass("checked nope").slideDown(250);
 					if (!green.includes(guessL[i]) && !yellow.includes(guessL[i])) {
-						$("." + guessL[i]).css("backgroundColor", "#111");
+						$("." + guessL[i]).css("backgroundColor", "#444");
 					}
 					guessL[i] = "-";	
 				}
 			} else {
 				$(".lb" + (j-1) + ".letter" + i).slideUp(250).addClass("checked nope").slideDown(250);
-				$("." + guessL[i]).css("backgroundColor", "#111");
+				$("." + guessL[i]).css("backgroundColor", "#444");
 			};
 			await time(450);
 		};

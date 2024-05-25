@@ -9,14 +9,12 @@ let userLoggedIn;
 let session;
 let users = {};
 
-let text = ""; // user input
-let j = 1;     // counting rounds
+let userInput = "";
+let round = 1;
 
 const minLength = 4;
 const maxLength = 8;
 
-// chose a language
-// let langArray = lang["de1"]; //de1, de2, en1
 const myLangs = {
 	de1: "de1",
 	de2: "de2",
@@ -24,13 +22,12 @@ const myLangs = {
 	lat: "lat"
 }
 
-
-// check session and local storage
 if (sessionStorage.getItem("userSession")){
 	session = JSON.parse(sessionStorage.getItem("userSession"));
 }
+
 if (!localStorage.getItem("users")) {
-	let newUser = { 
+	users["Dingsbums"]  = {
 		name: "Dingsbums",
 		total_score: 0,
 		total_plays: 0,
@@ -39,43 +36,39 @@ if (!localStorage.getItem("users")) {
 		lang: "de1",
 		num_letters: 0
 	};
-	users["Dingsbums"] = newUser;
 	localStorage.setItem("users", JSON.stringify(users));
 } 
 
 users = JSON.parse(localStorage.getItem("users"));
-
+let langArray;
 // Start Session
 function startSession() {
 	if (!sessionStorage.getItem("userSession")) {
-		login();		
+		login();
 	} else {
 		session = JSON.parse(sessionStorage.getItem("userSession"));
 		userLoggedIn = session.name;
-		console.log(users[userLoggedIn].lang)
-		langArray = lang[users[userLoggedIn].lang]
+		let userLang = lang[users[userLoggedIn].lang];
 		let num_letters = users[userLoggedIn].num_letters
-		// console.log(num_letters);
 		if (num_letters !== 0) {
-			console.log("True");
-			langArray = langArray.filter((word) => {
+			langArray = userLang.filter((word) => {
 				return word.length === num_letters;
 			})
-			console.log(langArray.slice(0, 20));
 		}
+
 		const rank = getRanking(userLoggedIn);
 		const langSetting = users[userLoggedIn].lang;
 		let letterSetting = num_letters;
-		
+
 		if (users[userLoggedIn].num_letters === 0) {
 			letterSetting = "Zufall"
-		};
+		}
 		$(".player").text(`${userLoggedIn}, ${rank}. Platz`);
 		$(".player-settings").html(`Sprache: <strong>${langSetting}</strong> | Buchstaben: <strong>${letterSetting}</strong>`);
 		$(".login-modal").css("display", "none");
 		game();
 	}
-};
+}
 
 $('#settings').click(() => {
 	$('.settings-modal').css("display", "flex");
@@ -101,7 +94,7 @@ $('#settings').click(() => {
 });
 
 $('#settings-form').submit((e) => {
-	// e.preventDefault();
+	e.preventDefault();
 	const newLang = $('#lang-select').val();
 	const newNumLetters = parseInt($('#num-letter').val()); 
 	users[userLoggedIn].lang = newLang;
@@ -154,7 +147,6 @@ function game() {
 		console.log("noScore")
 		$('.hideable').addClass('hide')
 	} else {
-		console.log("Score")
 		$('.hideable').removeClass('hide')
 	}
 	let rand = Math.floor(Math.random() * langArray.length);
@@ -165,26 +157,26 @@ function game() {
 		if (limit < 8) {
 			for (let i = 0; i < (8 - limit); i++) {
 				$(".letter" + (7 - i)).css("display", "none");
-			};
-		};
-	};
+			}
+		}
+	}
+
 	checkLimit(limit);
-	
 	// Grid letter insertion
 	function insertLetter(key) {
-		if (text.length < limit && (key).match(/^[a-zA-ZäöüÄÖÜ]$/)) {
-			var i = text.length % limit;
-			text += key;
-			$(".lb"+j+".letter" + i).text(key.toUpperCase());
-		} else if (key === "Backspace" && text.length > 0) {
-			text = text.slice(0, -1);
-			i = (text.length) % limit;
-			$(".lb" + j + ".letter" + i).text("");
-		} else if (text.length === limit && key === "Enter") {
-			isInWordlist(text);
-			text = ""
-			i = 0;
-			j++
+		let letterPosition;
+		if (userInput.length < limit && (key).match(/^[a-zA-ZäöüÄÖÜ]$/)) {
+			letterPosition = userInput.length % limit;
+			userInput += key;
+			$(".lb"+round+".letter" + letterPosition).text(key.toUpperCase());
+		} else if (key === "Backspace" && userInput.length > 0) {
+			userInput = userInput.slice(0, -1);
+			letterPosition = (userInput.length) % limit;
+			$(".lb" + round + ".letter" + letterPosition).text("");
+		} else if (userInput.length === limit && key === "Enter") {
+			isInWordlist(userInput).then();
+			userInput = ""
+			round++
 		}
 	}
 	
@@ -205,83 +197,95 @@ function game() {
 			let key = this.innerHTML;
 			insertLetter(key)
 		}
-	});	
-	
-	// Sleep function  
-	function time(ms) {
-		return new Promise((resolve, reject) => {
-			setTimeout(resolve, ms);
-		});
+	});
+
+	function sleep(ms) {
+		return new Promise(resolve => setTimeout(resolve, ms));
 	}
-	
+
+	async function letterIsExact(guessLetter, green, i){
+		$(".lb" + (round-1) + ".letter" + i).slideUp(250).addClass("checked exact").slideDown(250);
+		$("." + guessLetter).css("backgroundColor", "#6d8874");
+		green.push(guessLetter);
+		await sleep(450);
+	}
+
+	async function letterIsInWord(guessLetter, green, yellow, i){
+		$(".lb" + (round-1) + ".letter" + i).slideUp(250).addClass("checked okay").slideDown(250);
+		if (!green.includes(guessLetter)) {
+			$("." + guessLetter).css("backgroundColor", "#d7a86e");
+			yellow.push(guessLetter);
+		}
+		await sleep(450);
+	}
+
+	async function letterNotMultiple(guessLetters, green, yellow, i) {
+		$(".lb" + (round-1) + ".letter" + i).slideUp(250).addClass("checked nope").slideDown(250);
+		if (!green.includes(guessLetters[i]) && !yellow.includes(guessLetters[i])) {
+			$("." + guessLetters[i]).css("backgroundColor", "#111");
+		}
+		guessLetters[i] = "-";
+	}
+
+	async function letterDontMatch(guess, i){
+		$(".lb" + (round-1) + ".letter" + i).slideUp(250).addClass("checked nope").slideDown(250);
+		$("." + guess).css("backgroundColor", "#111");
+	}
+
 	// Validation, flip colored letters
 	async function showSuccess(guess) {
-		await time(100);
-		let guessL = guess.toLowerCase().split('');
+		await sleep(100);
+		let guessLetters = guess.toLowerCase().split('');
 		let guessLength = guess.length;
-		let green = [];
-		let yellow =[];
+		let greenLetters = [];
+		let yellowLetters =[];
 		for (let i = 0; i < guessLength; i++) {
 			let regExLetter = new RegExp(guess[i], 'ig');
-			if (guessL[i] === word[i].toLowerCase()) {
-				$(".lb" + (j-1) + ".letter" + i).slideUp(250).addClass("checked exact").slideDown(250);
-				$("." + guessL[i]).css("backgroundColor", "#6d8874");
-				green.push(guessL[i]);
-				await time(450);
+			if (guessLetters[i] === word[i].toLowerCase()) {
+				await letterIsExact(guessLetters[i], greenLetters, i);
 				continue;
 			} else if (word.match(regExLetter)) {
-				let gLength = countOccurency(guessL, guessL[i]);
+				let gLength = countOccurency(guessLetters, guessLetters[i]);
 				let wLength = word.match(regExLetter).length;
 				if ( gLength < wLength || gLength === wLength ) {	
-					$(".lb" + (j-1) + ".letter" + i).slideUp(250).addClass("checked okay").slideDown(250);
-					if (!green.includes(guessL[i])) {
-						$("." + guessL[i]).css("backgroundColor", "#d7a86e");
-						yellow.push(guessL[i]);
-					}
-					await time(450);
+					await letterIsInWord(guessLetters[i], greenLetters, yellowLetters, i)
 					continue;
 				} else {
-					$(".lb" + (j-1) + ".letter" + i).slideUp(250).addClass("checked nope").slideDown(250);
-					if (!green.includes(guessL[i]) && !yellow.includes(guessL[i])) {
-						$("." + guessL[i]).css("backgroundColor", "#111");
-					}
-					guessL[i] = "-";	
+					await letterNotMultiple(guessLetters, greenLetters, yellowLetters, i);
 				}
 			} else {
-				$(".lb" + (j-1) + ".letter" + i).slideUp(250).addClass("checked nope").slideDown(250);
-				$("." + guessL[i]).css("backgroundColor", "#111");
-			};
-			await time(450);
-		};
-	};
+				await letterDontMatch(guessLetters[i], i);
+			}
+			await sleep(450);
+		}
+	}
 	
 	// Wordlist incluedes guessed word ?
 	async function isInWordlist(text) {
 		text = text[0].toUpperCase() + text.slice(1).toLowerCase();
 		if (text !== word) {
 			if (langArray.includes(text)) {
-				// Global j = 1
-				if ( j === 6) {
+				if ( round === 6) {
 					lastRound(text);
 				}	else {
-					showSuccess(text);
+				 showSuccess(text);
 				}
 			} else {
-				await time(100);
+				await sleep(100);
 				for (let k = 0; k < limit; k++) {
-					$(`.lb${j-1}.letter${k}`).text('').fadeOut(200).fadeIn(200);
-					await time(50);
+					$(`.lb${round-1}.letter${k}`).text('').fadeOut(200).fadeIn(200);
+					await sleep(50);
 				}
-				j--;
-			};
+				round--;
+			}
 		} else {
 			showSuccess(word);
-			await time(word.length * 480)
-			const newScore = word.length * (8-j);
+			await sleep(word.length * 480)
+			const newScore = word.length * (8-round);
 			$('.keyboard-container').css('visibility', 'hidden');
-			score(newScore, j);
-		};
-	};
+			score(newScore, round);
+		}
+	}
 	
 	//  Last guess was worng  
 	function lastRound(guess) {
@@ -289,34 +293,34 @@ function game() {
 		const guessLength = guess.length;
 		for (let i = 0; i < guessLength; i++) {
 			if (guessL[i] === word[i].toLowerCase()) {
-				$(".lb" + (j) + ".letter" + i).addClass("exact");
+				$(".lb" + (round) + ".letter" + i).addClass("exact");
 				$("." + guessL[i]).css("backgroundColor", "#6d8874");
-				continue;
 			} else {
-				$(".lb" + (j) + ".letter" + i).text(word[i].toUpperCase());
-				$(".lb" + (j) + ".letter" + i).addClass("lose");
+				let falseLetter = $(".lb" + (round) + ".letter" + i);
+				falseLetter.text(word[i].toUpperCase());
+				falseLetter.addClass("lose");
 			}
-		};
-		score(-guessLength, j);
-	};
+		}
+		score(-guessLength, round);
+	}
 	
 	// Occurencies of letter in word (to avoid bad colorization)
 	function countOccurency(word, letter) {
 		let num = 0;
-		for (item in word) {
+		for (const item in word) {
 			if (word[item] === letter) {
 				num++;
 			}
 		}
 		return num;
-	};
+	}
 	
 	// Game Over
 	function score(points, tries) {
 		if ( points > 0 ) {
 			$('.success-container.win').slideDown();
 			rand = Math.floor(Math.random() * comments.length);
-			comment = comments[rand].lob;
+			const comment = comments[rand].lob;
 			$('.keyboard-container').css('visibility', 'hidden');
 			$('#win').text(comment);
 			$('#plus').text(`${points} Punkte für dich!`);
@@ -324,7 +328,7 @@ function game() {
 		} else {
 			$('.success-container.lose').slideDown();
 			rand = Math.floor(Math.random() * comments.length);
-			comment = comments[rand].tadel;
+			const comment = comments[rand].tadel;
 			$('.keyboard-container').css('visibility', 'hidden');
 			$('#lose').text(comment);
 			$('#minus').text(`Du kriegst ${Math.abs(points)} Punkte abgezogen!`);
@@ -348,8 +352,7 @@ function game() {
 			$('.manual-container').slideDown();
 			manualDisplay = true;
 		} else {
-			$('.manual-container').slideUp();
-			$('.manual-container').click(() => {
+			$('.manual-container').slideUp().click(() => {
 				$('.manual-container').slideUp();
 			});
 			manualDisplay = false;
@@ -382,12 +385,16 @@ function getScore() {
 	} else {
 		$('.score-container').css('display', 'none');
 		$('#anonymous').css('display', 'block');
+		return null;
 	}
-};
+}
 
 $('#scoring').onload = getScore();
 
 // Statistics
+const showTotal = $("#show-total");
+const showWords = $("#show-words");
+
 function getStatistics() {
 	if (userLoggedIn === 'Dingssbums') {
 		$('.statistics-container').css('display', 'none');
@@ -402,41 +409,40 @@ function getStatistics() {
 			{ tries: [] },
 			{ tries: [] }
 		];
-		
+
 		let maxTries = 0;
-		let vers;
+		let triesToSolve;
 		const result = users[userLoggedIn].scores;
 		for (const game of result) {
 			allTries[(game[1] - 1)].tries.push(game[2]);
 			if (allTries[(game[1] - 1)].tries.length > maxTries) {
 				maxTries = allTries[(game[1] - 1)].tries.length;
 			}
-			if (game[1] == 7) {
-				vers = "x";
+			if (game[1] === 7) {
+				triesToSolve = "x";
 			} else {
-				vers = game[1];
+				triesToSolve = game[1];
 			}
-			$("#show-total").after("<div class='wordlist'><div>" +
+			showTotal.after("<div class='wordlist'><div>" +
 			game[2] + "</div><div class='smaller'>" +
-			game[3] + " (" + vers + ")</div></div>");
-		};
-		
+			game[3] + " (" + triesToSolve + ")</div></div>");
+		}
+
 		const username = userLoggedIn;
 		const total = users[userLoggedIn].total_plays;
 		const score = users[userLoggedIn].total_score;
 		const lose = allTries[6].tries.length;
-		const win = total - lose;
 		const actualTries = result[result.length - 1].tries;
 		const factor = total / maxTries;
-		
+
 		$('.big-header').text(username);
 		$('.entry_date').text(users[userLoggedIn].date);
-		
+
 		$('.big-header2').text(`${score} Punkte`);
 		$('.plays').text(`${total} Spiele`);
-		
+
 		$('.try' + actualTries).css('backgroundColor', '#5FD068');
-		
+
 		allTries.forEach((key, index) => {
 			if (index === 6) {
 				const perc7 = (lose * 100 / total).toFixed(1);
@@ -444,7 +450,7 @@ function getStatistics() {
 				$('.percentage7').text(100 - perc7 + '%');
 				$('.number7').text(total - lose + ' Gewonnen');
 			} else {
-				
+
 				const perc = (key.tries.length * 100 / total).toFixed(1);
 				const i = (index + 1).toString();
 				$('.try' + i).animate({ height: factor * perc + '%' }, 1000);
@@ -452,51 +458,51 @@ function getStatistics() {
 				$('.percentage' + i).text(key.tries.length);
 			}
 		});
-		rank = getRanking(username);
+		const rank = getRanking(username);
 		$("#rank").text(`${rank}. Platz`);
-	}	
-};
+	}
+	return null;
+}
 
 $('#statistics').onload = getStatistics();
 
 
 function getRanking(name) {
-	
+
 	let high = Object.keys(users).map((v) => [users[v].total_score, users[v].name])
-	
+
 	high = high.sort(function (a, b) {
 		return b[0] - a[0];
 	});
-	
+
 	const rank = high.findIndex(player => player[1] === name)
 	return (rank + 1)
-};	
-
-$("#show-words").mouseover(function() {
-	$("#show-words").text("Liste");
+}
+showWords.mouseover(function() {
+	showWords.text("Liste");
 });
 
-$("#show-words").mouseout(function() {
-	$("#show-words").text("Gesamt");
+showWords.mouseout(function() {
+	showWords.text("Gesamt");
 });
 
-$("#show-total").mouseover(function() {
-	$("#show-total").text("Total");
+showTotal.mouseover(function() {
+	showTotal.text("Total");
 });
 
-$("#show-total").mouseout(function() {
-	$("#show-total").text("Wortliste");
+showTotal.mouseout(function() {
+	showTotal.text("Wortliste");
 });
 
 $("#total-tries").show();
 $("#all-words").hide();
 
-$("#show-words").click(function() {
+showWords.click(function() {
 	$("#total-tries").hide();
 	$("#all-words").show();
 });
 
-$("#show-total").click(function() {
+showTotal.click(function() {
 	$("#total-tries").show();
 	$("#all-words").hide();
 });

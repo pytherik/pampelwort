@@ -6,13 +6,23 @@
 	padding: 0;
 }
 
+:root {
+	--main-color: #333;
+	/*--main-color: #827397;*/
+	--letter-empty-color: #111;
+	--pampel-grid-color: #555;
+	--player-settings-color: #aaa;
+	--abc-hover-color: #555;
+	--score-container-color: #222;
+}
+
 ::-webkit-scrollbar {
  width:	0;
  }
 
 body {
-	background-color: #827397;
-	background-image: url("../images/cubes01-blur.png");
+	background-color: var(--main-color);
+	/*background-image: url("../images/cubes01-blur.png");*/
 	background-size: cover;
 	color: #E9D5DA;
 	font-family: "Poppins";
@@ -51,8 +61,9 @@ body {
 .navbar {
 	width: 100%;
 	height: auto;
-	background-image: linear-gradient(#827397, #4d4c7d);
-	box-shadow: inset 0 1.5em 0.25em -1.4em #ffffff77, 0 .8em .8em 0 #00000055;
+	background: #555;
+	/*background-image: linear-gradient(var(--main-color, #4d4c7d);*/
+	/*box-shadow: inset 0 1.5em 0.25em -1.4em #ffffff77, 0 .8em .8em 0 #00000055;*/
 	/* border-bottom: 1px solid #ffffff33; */
 	display: flex;
 	justify-content: space-between;
@@ -87,8 +98,8 @@ a {
 	margin: .5em 0;
 	padding: 0 .5em;
 	border-radius: .3em;
-	background-color: #E9D5DA37;
-	color: #000;
+	/*background-color: #E9D5DA37;*/
+	color: var(--player-settings-color);
 	text-shadow: 1px 1px 3px #fff;
 }
 
@@ -148,7 +159,7 @@ a {
 }
 .score-container,
 .statistics-container {
-	background-color: #4D4C7D99;
+	background-color: var(--score-container-color);
 	margin-top: 1%;
 	padding: 2%;
 	border-radius: 2%;
@@ -259,13 +270,13 @@ a {
 }
 
 .letter-box {
-	background-color: #363062;
+	background-color: var(--letter-empty-color);
 	text-align: center;
 	align-items: center;
 	width: 75px;
 	height: 75px;
-	border: 3px solid #827397;
-	text-shadow: 2px 2px 2px #827397;
+	border: 3px solid var(--pampel-grid-color);
+	text-shadow: 2px 2px 2px var(--main-color);
 	font-size: 2.6rem;
 	font-weight: 900;
 }
@@ -273,7 +284,7 @@ a {
 .checked {
 	width: 69px;
 	height: 69px;
-	box-shadow: inset 0 1.5em 0.25em -1.4em #ffffff77, 0 .8em .8em 0 #00000055;
+	box-shadow: inset 0 1.5em 0.25em -1.4em #ffffff22, 0 .8em .8em 0 #00000055;
 	border: none; 
 	margin: 3px;
 }
@@ -322,9 +333,9 @@ a {
 }
 
 .abc {
-	background-color: #827397;
+	background-color: var(--main-color);
 	/* box-shadow: 2px 2px 10px #00000055; */
-	box-shadow: inset 0 1.5em 0.25em -1em #ffffff44, 0 .8em .8em 0 #00000055;
+	box-shadow: inset 0 1.5em 0.25em -1em #ffffff22, 0 .8em .8em 0 #00000055;
 	text-shadow: 1px 1px #00000099;		
 	text-align: center;
 	align-items: center;
@@ -347,7 +358,7 @@ a {
 }
 
 .abc:hover {
-	background-color: #4d4c7dcc;
+	background-color: var(--abc-hover-color);
 	cursor: pointer;
 	color: #e9d5da;
 }
@@ -773,7 +784,7 @@ input[type="password"] {
 	.letter-box {
 		width: 66px;
 		height: 66px;
-		border: 2px solid #827397;
+		border: 2px solid var(--main-color);
 		font-size: 2.5rem;
 		font-weight: 500;
 	}

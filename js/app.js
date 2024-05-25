@@ -243,13 +243,13 @@ function game() {
 				} else {
 					$(".lb" + (j-1) + ".letter" + i).slideUp(250).addClass("checked nope").slideDown(250);
 					if (!green.includes(guessL[i]) && !yellow.includes(guessL[i])) {
-						$("." + guessL[i]).css("backgroundColor", "#444");
+						$("." + guessL[i]).css("backgroundColor", "#111");
 					}
 					guessL[i] = "-";	
 				}
 			} else {
 				$(".lb" + (j-1) + ".letter" + i).slideUp(250).addClass("checked nope").slideDown(250);
-				$("." + guessL[i]).css("backgroundColor", "#444");
+				$("." + guessL[i]).css("backgroundColor", "#111");
 			};
 			await time(450);
 		};

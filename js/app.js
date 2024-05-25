@@ -2,7 +2,7 @@ const loginForm = document.getElementById('login-form');
 const logNameEl = document.getElementById('loginName');
 
 const date = new Date().toLocaleDateString().slice(0,21);
-
+import { lang, comments } from './wordsArray.js';
 let manualDisplay = false;
 
 let userLoggedIn;
@@ -61,7 +61,7 @@ function startSession() {
 		let letterSetting = num_letters;
 
 		if (users[userLoggedIn].num_letters === 0) {
-			letterSetting = "Zufall"
+			letterSetting = "Zufall";
 		}
 		$(".player").text(`${userLoggedIn}, ${rank}. Platz`);
 		$(".player-settings").html(`Sprache: <strong>${langSetting}</strong> | Buchstaben: <strong>${letterSetting}</strong>`);

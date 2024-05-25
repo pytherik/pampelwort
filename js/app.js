@@ -1,3 +1,5 @@
+import {getUsers} from "./getUsers.js";
+
 const loginForm = document.getElementById('login-form');
 const logNameEl = document.getElementById('loginName');
 
@@ -6,8 +8,8 @@ import { lang, comments } from './wordsArray.js';
 let manualDisplay = false;
 
 let userLoggedIn;
-let session;
-let users = {};
+// let session;
+// let users = {};
 
 let userInput = "";
 let round = 1;
@@ -22,38 +24,20 @@ const myLangs = {
 	lat: "lat"
 }
 
-if (sessionStorage.getItem("userSession")){
-	session = JSON.parse(sessionStorage.getItem("userSession"));
-}
+let {users} = getUsers();
 
-if (!localStorage.getItem("users")) {
-	users["Dingsbums"]  = {
-		name: "Dingsbums",
-		total_score: 0,
-		total_plays: 0,
-		date : date,
-		scores: [],
-		lang: "de1",
-		num_letters: 0
-	};
-	localStorage.setItem("users", JSON.stringify(users));
-} 
-
-users = JSON.parse(localStorage.getItem("users"));
 let langArray;
-// Start Session
+
 function startSession() {
-	if (!sessionStorage.getItem("userSession")) {
+	let { session } = getUsers()
+	if (!session) {
 		login();
 	} else {
-		session = JSON.parse(sessionStorage.getItem("userSession"));
 		userLoggedIn = session.name;
 		let userLang = lang[users[userLoggedIn].lang];
 		let num_letters = users[userLoggedIn].num_letters
 		if (num_letters !== 0) {
-			langArray = userLang.filter((word) => {
-				return word.length === num_letters;
-			})
+			langArray = userLang.filter((word) => word.length === num_letters);
 		}
 
 		const rank = getRanking(userLoggedIn);
@@ -144,13 +128,12 @@ startSession();
 // get random word  
 function game() {
 	if (users[userLoggedIn].total_plays === 0) {
-		console.log("noScore")
 		$('.hideable').addClass('hide')
 	} else {
 		$('.hideable').removeClass('hide')
 	}
 	let rand = Math.floor(Math.random() * langArray.length);
-	const word = langArray[rand];	
+	const word = langArray[rand];
 	const limit = word.length;
 	// Set dimension of Grid
 	function checkLimit(limit) {

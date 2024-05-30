@@ -8,15 +8,14 @@ let manualDisplay = false;
 let userLoggedIn;
 let session;
 let users = {};
+let langArray;
 
-let text = ""; // user input
-let j = 1;     // counting rounds
+let userInput = "";
+let round = 1;
 
 const minLength = 4;
 const maxLength = 8;
 
-// chose a language
-// let langArray = lang["de1"]; //de1, de2, en1
 const myLangs = {
 	de1: "de1",
 	de2: "de2",
@@ -55,7 +54,6 @@ function startSession() {
 		console.log(users[userLoggedIn].lang)
 		langArray = lang[users[userLoggedIn].lang]
 		let num_letters = users[userLoggedIn].num_letters
-		// console.log(num_letters);
 		if (num_letters !== 0) {
 			console.log("True");
 			langArray = langArray.filter((word) => {
@@ -172,19 +170,19 @@ function game() {
 	
 	// Grid letter insertion
 	function insertLetter(key) {
-		if (text.length < limit && (key).match(/^[a-zA-ZäöüÄÖÜ]$/)) {
-			var i = text.length % limit;
-			text += key;
-			$(".lb"+j+".letter" + i).text(key.toUpperCase());
-		} else if (key === "Backspace" && text.length > 0) {
-			text = text.slice(0, -1);
-			i = (text.length) % limit;
-			$(".lb" + j + ".letter" + i).text("");
-		} else if (text.length === limit && key === "Enter") {
-			isInWordlist(text);
-			text = ""
+		if (userInput.length < limit && (key).match(/^[a-zA-ZäöüÄÖÜ]$/)) {
+			var i = userInput.length % limit;
+			userInput += key;
+			$(".lb"+round+".letter" + i).text(key.toUpperCase());
+		} else if (key === "Backspace" && userInput.length > 0) {
+			userInput = userInput.slice(0, -1);
+			i = (userInput.length) % limit;
+			$(".lb" + round + ".letter" + i).text("");
+		} else if (userInput.length === limit && key === "Enter") {
+			isInWordlist(userInput);
+			userInput = ""
 			i = 0;
-			j++
+			round++
 		}
 	}
 	
@@ -224,7 +222,7 @@ function game() {
 		for (let i = 0; i < guessLength; i++) {
 			let regExLetter = new RegExp(guess[i], 'ig');
 			if (guessL[i] === word[i].toLowerCase()) {
-				$(".lb" + (j-1) + ".letter" + i).slideUp(250).addClass("checked exact").slideDown(250);
+				$(".lb" + (round-1) + ".letter" + i).slideUp(250).addClass("checked exact").slideDown(250);
 				$("." + guessL[i]).css("backgroundColor", "#6d8874");
 				green.push(guessL[i]);
 				await time(450);
@@ -233,7 +231,7 @@ function game() {
 				let gLength = countOccurency(guessL, guessL[i]);
 				let wLength = word.match(regExLetter).length;
 				if ( gLength < wLength || gLength === wLength ) {	
-					$(".lb" + (j-1) + ".letter" + i).slideUp(250).addClass("checked okay").slideDown(250);
+					$(".lb" + (round-1) + ".letter" + i).slideUp(250).addClass("checked okay").slideDown(250);
 					if (!green.includes(guessL[i])) {
 						$("." + guessL[i]).css("backgroundColor", "#d7a86e");
 						yellow.push(guessL[i]);
@@ -241,14 +239,14 @@ function game() {
 					await time(450);
 					continue;
 				} else {
-					$(".lb" + (j-1) + ".letter" + i).slideUp(250).addClass("checked nope").slideDown(250);
+					$(".lb" + (round-1) + ".letter" + i).slideUp(250).addClass("checked nope").slideDown(250);
 					if (!green.includes(guessL[i]) && !yellow.includes(guessL[i])) {
 						$("." + guessL[i]).css("backgroundColor", "#111");
 					}
 					guessL[i] = "-";	
 				}
 			} else {
-				$(".lb" + (j-1) + ".letter" + i).slideUp(250).addClass("checked nope").slideDown(250);
+				$(".lb" + (round-1) + ".letter" + i).slideUp(250).addClass("checked nope").slideDown(250);
 				$("." + guessL[i]).css("backgroundColor", "#111");
 			};
 			await time(450);
@@ -261,7 +259,7 @@ function game() {
 		if (text !== word) {
 			if (langArray.includes(text)) {
 				// Global j = 1
-				if ( j === 6) {
+				if ( round === 6) {
 					lastRound(text);
 				}	else {
 					showSuccess(text);
@@ -269,17 +267,17 @@ function game() {
 			} else {
 				await time(100);
 				for (let k = 0; k < limit; k++) {
-					$(`.lb${j-1}.letter${k}`).text('').fadeOut(200).fadeIn(200);
+					$(`.lb${round-1}.letter${k}`).text('').fadeOut(200).fadeIn(200);
 					await time(50);
 				}
-				j--;
+				round--;
 			};
 		} else {
 			showSuccess(word);
 			await time(word.length * 480)
-			const newScore = word.length * (8-j);
+			const newScore = word.length * (8-round);
 			$('.keyboard-container').css('visibility', 'hidden');
-			score(newScore, j);
+			score(newScore, round);
 		};
 	};
 	
@@ -289,15 +287,15 @@ function game() {
 		const guessLength = guess.length;
 		for (let i = 0; i < guessLength; i++) {
 			if (guessL[i] === word[i].toLowerCase()) {
-				$(".lb" + (j) + ".letter" + i).addClass("exact");
+				$(".lb" + (round) + ".letter" + i).addClass("exact");
 				$("." + guessL[i]).css("backgroundColor", "#6d8874");
 				continue;
 			} else {
-				$(".lb" + (j) + ".letter" + i).text(word[i].toUpperCase());
-				$(".lb" + (j) + ".letter" + i).addClass("lose");
+				$(".lb" + (round) + ".letter" + i).text(word[i].toUpperCase());
+				$(".lb" + (round) + ".letter" + i).addClass("lose");
 			}
 		};
-		score(-guessLength, j);
+		score(-guessLength, round);
 	};
 	
 	// Occurencies of letter in word (to avoid bad colorization)

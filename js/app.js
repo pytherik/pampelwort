@@ -29,7 +29,7 @@ if (sessionStorage.getItem("userSession")){
 	session = JSON.parse(sessionStorage.getItem("userSession"));
 }
 if (!localStorage.getItem("users")) {
-	let newUser = { 
+	users["Dingsbums"] = {
 		name: "Dingsbums",
 		total_score: 0,
 		total_plays: 0,
@@ -38,7 +38,6 @@ if (!localStorage.getItem("users")) {
 		lang: "de1",
 		num_letters: 0
 	};
-	users["Dingsbums"] = newUser;
 	localStorage.setItem("users", JSON.stringify(users));
 } 
 
@@ -51,15 +50,12 @@ function startSession() {
 	} else {
 		session = JSON.parse(sessionStorage.getItem("userSession"));
 		userLoggedIn = session.name;
-		console.log(users[userLoggedIn].lang)
 		langArray = lang[users[userLoggedIn].lang]
 		let num_letters = users[userLoggedIn].num_letters
 		if (num_letters !== 0) {
-			console.log("True");
 			langArray = langArray.filter((word) => {
 				return word.length === num_letters;
 			})
-			console.log(langArray.slice(0, 20));
 		}
 		const rank = getRanking(userLoggedIn);
 		const langSetting = users[userLoggedIn].lang;
@@ -99,7 +95,7 @@ $('#settings').click(() => {
 });
 
 $('#settings-form').submit((e) => {
-	// e.preventDefault();
+	e.preventDefault();
 	const newLang = $('#lang-select').val();
 	const newNumLetters = parseInt($('#num-letter').val()); 
 	users[userLoggedIn].lang = newLang;
@@ -152,9 +148,9 @@ function game() {
 		console.log("noScore")
 		$('.hideable').addClass('hide')
 	} else {
-		console.log("Score")
 		$('.hideable').removeClass('hide')
 	}
+
 	let rand = Math.floor(Math.random() * langArray.length);
 	const word = langArray[rand];	
 	const limit = word.length;
@@ -171,15 +167,15 @@ function game() {
 	// Grid letter insertion
 	function insertLetter(key) {
 		if (userInput.length < limit && (key).match(/^[a-zA-ZäöüÄÖÜ]$/)) {
-			var i = userInput.length % limit;
+			let i = userInput.length % limit;
 			userInput += key;
 			$(".lb"+round+".letter" + i).text(key.toUpperCase());
 		} else if (key === "Backspace" && userInput.length > 0) {
 			userInput = userInput.slice(0, -1);
-			i = (userInput.length) % limit;
+			let i = (userInput.length) % limit;
 			$(".lb" + round + ".letter" + i).text("");
 		} else if (userInput.length === limit && key === "Enter") {
-			isInWordlist(userInput);
+			isInWordlist(userInput).then();
 			userInput = ""
 			round++
 		}
@@ -287,8 +283,7 @@ function game() {
 				$(".lb" + (round) + ".letter" + i).addClass("exact");
 				$("." + guessL[i]).css("backgroundColor", "#6d8874");
 			} else {
-				$(".lb" + (round) + ".letter" + i).text(word[i].toUpperCase());
-				$(".lb" + (round) + ".letter" + i).addClass("lose");
+				$(".lb" + (round) + ".letter" + i).text(word[i].toUpperCase()).addClass("lose");
 			}
 		}
 		score(-guessLength, round);
@@ -297,7 +292,7 @@ function game() {
 	// Occurencies of letter in word (to avoid bad colorization)
 	function countOccurency(word, letter) {
 		let num = 0;
-		for (item in word) {
+		for (const item in word) {
 			if (word[item] === letter) {
 				num++;
 			}
@@ -310,7 +305,7 @@ function game() {
 		if ( points > 0 ) {
 			$('.success-container.win').slideDown();
 			rand = Math.floor(Math.random() * comments.length);
-			comment = comments[rand].lob;
+			const comment = comments[rand].lob;
 			$('.keyboard-container').css('visibility', 'hidden');
 			$('#win').text(comment);
 			$('#plus').text(`${points} Punkte für dich!`);
@@ -318,7 +313,7 @@ function game() {
 		} else {
 			$('.success-container.lose').slideDown();
 			rand = Math.floor(Math.random() * comments.length);
-			comment = comments[rand].tadel;
+			const comment = comments[rand].tadel;
 			$('.keyboard-container').css('visibility', 'hidden');
 			$('#lose').text(comment);
 			$('#minus').text(`Du kriegst ${Math.abs(points)} Punkte abgezogen!`);
@@ -342,8 +337,7 @@ function game() {
 			$('.manual-container').slideDown();
 			manualDisplay = true;
 		} else {
-			$('.manual-container').slideUp();
-			$('.manual-container').click(() => {
+			$('.manual-container').slideUp().click(() => {
 				$('.manual-container').slideUp();
 			});
 			manualDisplay = false;
@@ -377,9 +371,13 @@ function getScore() {
 		$('.score-container').css('display', 'none');
 		$('#anonymous').css('display', 'block');
 	}
-};
+	return null;
+}
 
 $('#scoring').onload = getScore();
+
+const showTotal = $("#show-total");
+const showWords = $("#show-words");
 
 // Statistics
 function getStatistics() {
@@ -405,12 +403,12 @@ function getStatistics() {
 			if (allTries[(game[1] - 1)].tries.length > maxTries) {
 				maxTries = allTries[(game[1] - 1)].tries.length;
 			}
-			if (game[1] == 7) {
+			if (game[1] === 7) {
 				vers = "x";
 			} else {
 				vers = game[1];
 			}
-			$("#show-total").after("<div class='wordlist'><div>" +
+			showTotal.after("<div class='wordlist'><div>" +
 			game[2] + "</div><div class='smaller'>" +
 			game[3] + " (" + vers + ")</div></div>");
 		}
@@ -419,7 +417,6 @@ function getStatistics() {
 		const total = users[userLoggedIn].total_plays;
 		const score = users[userLoggedIn].total_score;
 		const lose = allTries[6].tries.length;
-		const win = total - lose;
 		const actualTries = result[result.length - 1].tries;
 		const factor = total / maxTries;
 		
@@ -446,9 +443,10 @@ function getStatistics() {
 				$('.percentage' + i).text(key.tries.length);
 			}
 		});
-		rank = getRanking(username);
+		const rank = getRanking(username);
 		$("#rank").text(`${rank}. Platz`);
-	}	
+	}
+	return null;
 }
 
 $('#statistics').onload = getStatistics();
@@ -464,33 +462,33 @@ function getRanking(name) {
 	
 	const rank = high.findIndex(player => player[1] === name)
 	return (rank + 1)
-};	
+}
 
-$("#show-words").mouseover(function() {
-	$("#show-words").text("Liste");
+showWords.mouseover(function() {
+	showWords.text("Liste");
 });
 
-$("#show-words").mouseout(function() {
-	$("#show-words").text("Gesamt");
+showWords.mouseout(function() {
+	showWords.text("Gesamt");
 });
 
-$("#show-total").mouseover(function() {
-	$("#show-total").text("Total");
+showTotal.mouseover(function() {
+	showTotal.text("Total");
 });
 
-$("#show-total").mouseout(function() {
-	$("#show-total").text("Wortliste");
+showTotal.mouseout(function() {
+	showTotal.text("Wortliste");
 });
 
 $("#total-tries").show();
 $("#all-words").hide();
 
-$("#show-words").click(function() {
+showWords.click(function() {
 	$("#total-tries").hide();
 	$("#all-words").show();
 });
 
-$("#show-total").click(function() {
+showTotal.click(function() {
 	$("#total-tries").show();
 	$("#all-words").hide();
 });

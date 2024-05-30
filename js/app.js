@@ -67,13 +67,13 @@ function startSession() {
 		
 		if (users[userLoggedIn].num_letters === 0) {
 			letterSetting = "Zufall"
-		};
+		}
 		$(".player").text(`${userLoggedIn}, ${rank}. Platz`);
 		$(".player-settings").html(`Sprache: <strong>${langSetting}</strong> | Buchstaben: <strong>${letterSetting}</strong>`);
 		$(".login-modal").css("display", "none");
 		game();
 	}
-};
+}
 
 $('#settings').click(() => {
 	$('.settings-modal').css("display", "flex");
@@ -163,9 +163,9 @@ function game() {
 		if (limit < 8) {
 			for (let i = 0; i < (8 - limit); i++) {
 				$(".letter" + (7 - i)).css("display", "none");
-			};
-		};
-	};
+			}
+		}
+	}
 	checkLimit(limit);
 	
 	// Grid letter insertion
@@ -181,7 +181,6 @@ function game() {
 		} else if (userInput.length === limit && key === "Enter") {
 			isInWordlist(userInput);
 			userInput = ""
-			i = 0;
 			round++
 		}
 	}
@@ -248,10 +247,10 @@ function game() {
 			} else {
 				$(".lb" + (round-1) + ".letter" + i).slideUp(250).addClass("checked nope").slideDown(250);
 				$("." + guessL[i]).css("backgroundColor", "#111");
-			};
+			}
 			await time(450);
-		};
-	};
+		}
+	}
 	
 	// Wordlist incluedes guessed word ?
 	async function isInWordlist(text) {
@@ -271,15 +270,15 @@ function game() {
 					await time(50);
 				}
 				round--;
-			};
+			}
 		} else {
 			showSuccess(word);
 			await time(word.length * 480)
 			const newScore = word.length * (8-round);
 			$('.keyboard-container').css('visibility', 'hidden');
 			score(newScore, round);
-		};
-	};
+		}
+	}
 	
 	//  Last guess was worng  
 	function lastRound(guess) {
@@ -289,14 +288,13 @@ function game() {
 			if (guessL[i] === word[i].toLowerCase()) {
 				$(".lb" + (round) + ".letter" + i).addClass("exact");
 				$("." + guessL[i]).css("backgroundColor", "#6d8874");
-				continue;
 			} else {
 				$(".lb" + (round) + ".letter" + i).text(word[i].toUpperCase());
 				$(".lb" + (round) + ".letter" + i).addClass("lose");
 			}
-		};
+		}
 		score(-guessLength, round);
-	};
+	}
 	
 	// Occurencies of letter in word (to avoid bad colorization)
 	function countOccurency(word, letter) {
@@ -307,7 +305,7 @@ function game() {
 			}
 		}
 		return num;
-	};
+	}
 	
 	// Game Over
 	function score(points, tries) {
@@ -417,7 +415,7 @@ function getStatistics() {
 			$("#show-total").after("<div class='wordlist'><div>" +
 			game[2] + "</div><div class='smaller'>" +
 			game[3] + " (" + vers + ")</div></div>");
-		};
+		}
 		
 		const username = userLoggedIn;
 		const total = users[userLoggedIn].total_plays;
@@ -453,7 +451,7 @@ function getStatistics() {
 		rank = getRanking(username);
 		$("#rank").text(`${rank}. Platz`);
 	}	
-};
+}
 
 $('#statistics').onload = getStatistics();
 

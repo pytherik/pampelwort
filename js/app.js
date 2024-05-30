@@ -205,15 +205,13 @@ function game() {
 	});	
 	
 	// Sleep function  
-	function time(ms) {
-		return new Promise((resolve, reject) => {
-			setTimeout(resolve, ms);
-		});
+	function sleep(ms) {
+		return new Promise(resolve => setTimeout(resolve, ms));
 	}
 	
 	// Validation, flip colored letters
 	async function showSuccess(guess) {
-		await time(100);
+		await sleep(100);
 		let guessL = guess.toLowerCase().split('');
 		let guessLength = guess.length;
 		let green = [];
@@ -224,7 +222,7 @@ function game() {
 				$(".lb" + (round-1) + ".letter" + i).slideUp(250).addClass("checked exact").slideDown(250);
 				$("." + guessL[i]).css("backgroundColor", "#6d8874");
 				green.push(guessL[i]);
-				await time(450);
+				await sleep(450);
 				continue;
 			} else if (word.match(regExLetter)) {
 				let gLength = countOccurency(guessL, guessL[i]);
@@ -235,7 +233,7 @@ function game() {
 						$("." + guessL[i]).css("backgroundColor", "#d7a86e");
 						yellow.push(guessL[i]);
 					}
-					await time(450);
+					await sleep(450);
 					continue;
 				} else {
 					$(".lb" + (round-1) + ".letter" + i).slideUp(250).addClass("checked nope").slideDown(250);
@@ -248,7 +246,7 @@ function game() {
 				$(".lb" + (round-1) + ".letter" + i).slideUp(250).addClass("checked nope").slideDown(250);
 				$("." + guessL[i]).css("backgroundColor", "#111");
 			}
-			await time(450);
+			await sleep(450);
 		}
 	}
 	
@@ -264,16 +262,16 @@ function game() {
 					showSuccess(text);
 				}
 			} else {
-				await time(100);
+				await sleep(100);
 				for (let k = 0; k < limit; k++) {
 					$(`.lb${round-1}.letter${k}`).text('').fadeOut(200).fadeIn(200);
-					await time(50);
+					await sleep(50);
 				}
 				round--;
 			}
 		} else {
 			showSuccess(word);
-			await time(word.length * 480)
+			await sleep(word.length * 480)
 			const newScore = word.length * (8-round);
 			$('.keyboard-container').css('visibility', 'hidden');
 			score(newScore, round);

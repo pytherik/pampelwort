@@ -258,7 +258,7 @@ function game() {
 				if ( round === 6) {
 					lastRound(text);
 				}	else {
-					showSuccess(text);
+					showSuccess(text).then();
 				}
 			} else {
 				await sleep(100);
@@ -269,7 +269,7 @@ function game() {
 				round--;
 			}
 		} else {
-			showSuccess(word);
+			showSuccess(word).then();
 			await sleep(word.length * 480)
 			const newScore = word.length * (8-round);
 			$('.keyboard-container').css('visibility', 'hidden');
@@ -292,7 +292,6 @@ function game() {
 		score(-guessLength, round);
 	}
 	
-	// Occurencies of letter in word (to avoid bad colorization)
 	function countOccurency(word, letter) {
 		let num = 0;
 		for (const item in word) {

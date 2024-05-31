@@ -10,42 +10,53 @@
 </head>
 <body>
 <nav class="navbar">
-  <div>
-    <a class="hide" href="statistics.html">
-      <img class="nav-icon" src="images/icons/stats2.png" alt="" title="Statistik" />Statistik
-    </a>
-  </div>
-  <div>
     <ul>
       <li>
+        <a class="hideable" href="statistics.html">
+          <img class="nav-icon" src="images/icons/stats2.png" alt="" title="Statistik"/>
+          <span class="nav-item">
+            Statistik
+          </span>
+        </a>
+      </li>
+      <li>
         <a href="highscore.html" class="nav-item">
-          <img class="nav-icon" src="images/icons/score2.png" alt="score" title="Highscore" />Highscore
+          <img class="nav-icon" src="images/icons/score2.png" alt="score" title="Highscore"/>
+          <span class="nav-item">
+            Highscore
+          </span>
         </a>
       </li>
       <li>
         <a href="index.html" class="nav-item">
-          <img class="nav-icon" src="images/icons/refresh2.png" alt="refresh" title="neues Pampelwort" />Neues Wort
+          <img class="nav-icon" src="images/icons/refresh2.png" alt="refresh" title="Neues Wort"/>
+          <span class="nav-item">
+            Neues Wort
+          </span>
         </a>
       </li>
       <li>
-        <img class="nav-icon" src="images/icons/help3.png" alt="help" title="Wie geht das?" />
-        <span class="nav-item">Info</span>
+        <img class="nav-icon" src="images/icons/help3.png" alt="help" title="Info"/>
+        <span class="nav-item">
+          Info
+        </span>
       </li>
       <li>
-        <img class="nav-icon" src="images/icons/settings.png" title="Einstellungen" alt="settings" />
-        <span class="nav-item">Einstellungen</span>
+        <img class="nav-icon" src="images/icons/settings.png" title="Einstellungen" alt="Einstellungen"/>
+        <span class="nav-item">
+          Einstellungen
+        </span>
+      </li>
+      <li>
+        <img class="nav-icon logout" src="images/icons/logout2.png" alt="logout" title="Logout"/>
       </li>
     </ul>
-  </div>
-  <div>
-    <img class="nav-item logout" src="images/icons/logout2.png" alt="logout" title="Logout">
-  </div>
 </nav>
 <!-- Game Grid -->
 <div class="container">
-  <span class="player-settings">Lang: de1 | Buchstaben: rand</span>
   <h3 class="player">?</h3>
   <span class="player-rank"></span>
+  <span class="player-settings">Lang: de1 | Buchstaben: rand</span>
   <div class="row first-row">
     <div class="letter-box lb1 letter0"></div>
     <div class="letter-box lb1 letter1"></div>

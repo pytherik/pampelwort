@@ -10,19 +10,47 @@
 </head>
 <body>
 <nav class="navbar">
-  <div class="nav-items">
-    <a href="statistics.html"><img class="nav-icon-bg" src="images/icons/stats2.png" alt=""></a>
-  </div>
-  <div class="nav-items">
-    <ul class="link">
-      <li class="score"><a href="highscore.html"><img class="nav-icon" src="images/icons/score2.png" alt=""></a></li>
-      <li><a href="index.html"><img class="nav-icon" src="images/icons/refresh2.png" alt=""></a></li>
-      <li id="manual"><img class="nav-icon" src="images/icons/help3.png" alt=""></li>
-    </ul>
-  </div>
-  <div class="nav-items">
-    <img class="nav-icon-bg logout" src="images/icons/logout2.png" alt="">
-  </div>
+  <ul>
+    <li>
+      <a class="hideable" href="statistics.html">
+        <img class="nav-icon" src="images/icons/stats2.png" alt="" title="Statistik"/>
+        <span class="nav-item">
+            Statistik
+          </span>
+      </a>
+    </li>
+    <li>
+      <a href="highscore.html" class="nav-item">
+        <img class="nav-icon" src="images/icons/score2.png" alt="score" title="Highscore"/>
+        <span class="nav-item">
+            Highscore
+          </span>
+      </a>
+    </li>
+    <li>
+      <a href="index.html" class="nav-item">
+        <img class="nav-icon" src="images/icons/refresh2.png" alt="refresh" title="Neues Wort"/>
+        <span class="nav-item">
+            Neues Wort
+          </span>
+      </a>
+    </li>
+    <li>
+      <img class="nav-icon inactive" src="images/icons/help3.png" alt="help" title="Info"/>
+      <span class="nav-item inactive">
+          Info
+        </span>
+    </li>
+    <li>
+      <img class="nav-icon inactive" src="images/icons/settings.png" title="Einstellungen" alt="Einstellungen"/>
+      <span class="nav-item inactive">
+          Einstellungen
+        </span>
+    </li>
+    <li>
+      <img class="nav-icon logout" src="images/icons/logout2.png" alt="logout" title="Logout"/>
+    </li>
+  </ul>
 </nav>
 
 <div id="anonymous">

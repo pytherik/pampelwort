@@ -1,6 +1,6 @@
 // comments @108541; wordsArray2 @34570; engWords @53212; lat @85130
 
-const lang = {
+export const lang = {
   de1: [
     "Aachen",
     "Aachener",
@@ -108538,7 +108538,7 @@ const lang = {
     ]
 }
 
-const comments = [
+export const comments = [
   {"id":"1","greeting":"Aloha","tadel":"Echte Kacke hier!","lob":"Amüsant!"},
   {"id":"2","greeting":"Ave","tadel":"Total verkackt!","lob":"Schnafte!"},
   {"id":"3","greeting":"Ciao","tadel":"Vermasselt!","lob":"Alles Rodger!"},

@@ -10,26 +10,42 @@
 </head>
 <body>
 <nav class="navbar">
-  <div class="nav-items">
-    <a href="statistics.html"><img class="nav-icon-bg hideable" src="images/icons/stats2.png" alt="" title="Statistik"></a>
+  <div>
+    <a class="hide" href="statistics.html">
+      <img class="nav-icon" src="images/icons/stats2.png" alt="" title="Statistik" />Statistik
+    </a>
   </div>
-  <div class="nav-items">
-    <ul class="link">
-      <li class="score"><a href="highscore.html"><img class="nav-icon-bg hideable" src="images/icons/score2.png" alt="" title="Highscore"></a>
+  <div>
+    <ul>
+      <li>
+        <a href="highscore.html" class="nav-item">
+          <img class="nav-icon" src="images/icons/score2.png" alt="score" title="Highscore" />Highscore
+        </a>
       </li>
-      <li><a href="index.html"><img class="nav-icon-bg" src="images/icons/refresh2.png" alt="" title="neues Pampelwort"></a></li>
-      <li id="manual"><img class="nav-icon-bg" src="images/icons/help3.png" alt="" title="Wie geht das?"></li>
-      <li id="settings"><img class="nav-icon-bg" src="images/icons/settings.png" title="Einstellungen"></li>
+      <li>
+        <a href="index.html" class="nav-item">
+          <img class="nav-icon" src="images/icons/refresh2.png" alt="refresh" title="neues Pampelwort" />Neues Wort
+        </a>
+      </li>
+      <li>
+        <img class="nav-icon" src="images/icons/help3.png" alt="help" title="Wie geht das?" />
+        <span class="nav-item">Info</span>
+      </li>
+      <li>
+        <img class="nav-icon" src="images/icons/settings.png" title="Einstellungen" alt="settings" />
+        <span class="nav-item">Einstellungen</span>
+      </li>
     </ul>
   </div>
-  <div class="nav-items">
-    <img class="nav-icon-bg logout" src="images/icons/logout2.png" alt="">
+  <div>
+    <img class="nav-item logout" src="images/icons/logout2.png" alt="logout" title="Logout">
   </div>
 </nav>
 <!-- Game Grid -->
 <div class="container">
   <span class="player-settings">Lang: de1 | Buchstaben: rand</span>
   <h3 class="player">?</h3>
+  <span class="player-rank"></span>
   <div class="row first-row">
     <div class="letter-box lb1 letter0"></div>
     <div class="letter-box lb1 letter1"></div>
@@ -118,7 +134,7 @@
       <div class="letter-box abc ä">Ä</div>
     </div>
     <div class="row">
-      <div class="letter-box abc back"><img src="images/icons/back1.png" alt=""></div>
+      <div class="letter-box abc back"><img src="images/icons/back2.png" alt=""></div>
       <div class="letter-box abc y">Y</div>
       <div class="letter-box abc x">X</div>
       <div class="letter-box abc c">C</div>
@@ -126,11 +142,10 @@
       <div class="letter-box abc b">B</div>
       <div class="letter-box abc n">N</div>
       <div class="letter-box abc m">M</div>
-      <div class="letter-box abc enter"><img src="images/icons/enter.png" alt=""></div>
+      <div class="letter-box abc enter"><img src="images/icons/enter2.png" alt=""></div>
     </div>
   </div>
 </div>
-
 
 <div class="success-container win">
   <div class="row">
@@ -145,7 +160,6 @@
   </div>
 </div>
 
-
 <div class="success-container lose">
   <div class="row">
     <h1 id="lose" class="header">Sone Kacke!</h1>
@@ -158,7 +172,6 @@
     <p>
   </div>
 </div>
-
 
 <div class="manual-container">
   <div class="man-row">
@@ -195,7 +208,7 @@
     </div>
 
     <div id="login" class="register-row">
-      <h2 class="reg-header">Log dich ein</h2>
+      <h2 class="reg-header">Login</h2>
       <form id="login-form">
         <p>
           <label class="log" for="loginName">Spielername</label>
@@ -236,13 +249,11 @@
           <button id="settings-abort" class="settings-button lose">Abbruch</button>
         </div>
       </div>
+    </form>
   </div>
-  </form>
 </div>
 
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
 <script src="js/jquery-3.6.0.min.js"></script>
-<script src="js/wordsArray.js"></script>
-<script src="js/app.js"></script>
+<script src="js/app.js" type="module"></script>
 </body>
 </html>

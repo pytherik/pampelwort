@@ -1,6 +1,8 @@
 const loginForm = document.getElementById('login-form');
 const logNameEl = document.getElementById('loginName');
 
+import { lang, comments } from './wordsArray.js';
+
 const date = new Date().toLocaleDateString().slice(0,21);
 
 let manualDisplay = false;
@@ -64,7 +66,8 @@ function startSession() {
 		if (users[userLoggedIn].num_letters === 0) {
 			letterSetting = "Zufall"
 		}
-		$(".player").text(`${userLoggedIn}, ${rank}. Platz`);
+		$(".player").text(userLoggedIn);
+		$(".player-rank").text(`${rank}. Platz`);
 		$(".player-settings").html(`Sprache: <strong>${langSetting}</strong> | Buchstaben: <strong>${letterSetting}</strong>`);
 		$(".login-modal").css("display", "none");
 		game();
@@ -216,7 +219,7 @@ function game() {
 			let regExLetter = new RegExp(guess[i], 'ig');
 			if (guessL[i] === word[i].toLowerCase()) {
 				$(".lb" + (round-1) + ".letter" + i).slideUp(250).addClass("checked exact").slideDown(250);
-				$("." + guessL[i]).css("backgroundColor", "#6d8874");
+				$("." + guessL[i]).css("backgroundColor", "#6d887488");
 				green.push(guessL[i]);
 				await sleep(450);
 				continue;
@@ -226,7 +229,7 @@ function game() {
 				if ( gLength < wLength || gLength === wLength ) {	
 					$(".lb" + (round-1) + ".letter" + i).slideUp(250).addClass("checked okay").slideDown(250);
 					if (!green.includes(guessL[i])) {
-						$("." + guessL[i]).css("backgroundColor", "#d7a86e");
+						$("." + guessL[i]).css("backgroundColor", "#d7a86e88");
 						yellow.push(guessL[i]);
 					}
 					await sleep(450);

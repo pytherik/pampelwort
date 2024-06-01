@@ -679,7 +679,7 @@ input[type="password"] {
 
 
 
-@media screen and (max-width: 1500px) {
+@media screen and (max-width: 1600px) {
 
 	.navbar {
 		padding: 0 10px;
@@ -861,7 +861,7 @@ input[type="password"] {
 
 }
 
-@media screen and (max-width: 1300px) {
+@media screen and (max-height: 800px) {
 
 	.navbar {
 		height: 30px;

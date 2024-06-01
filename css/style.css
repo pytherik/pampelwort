@@ -62,7 +62,7 @@ body {
 
 .navbar {
 	width: 100%;
-	height: 35px;
+	height: auto;
 	background: var(--nav-background-color);
 	border-bottom: 2px solid var(--nav-border-color);
 	margin-bottom: 1.5rem;
@@ -73,19 +73,35 @@ a {
 	color: var(--main-color);
 }
 
-ul {
-	width: 100%;
+.nav-list {
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
 	align-items: center;
-	list-style: none;
+	padding: .1rem 1rem;
 }
 
-.ul-section {
+.nav-burger {
+	position: absolute;
+	top: 1.5rem;
+	left: 1.5rem;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+	margin-top: 1rem;
+}
+
+.nav-section, .burger-section {
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
 }
+
+.burger-section {
+	display: none;
+}
+
 .player {
 	font-size: 2.8rem;
 	font-weight: 500;
@@ -107,6 +123,7 @@ ul {
 }
 
 .nav-item {
+	margin-right: 2rem;
 	font-size: 1rem;
 	cursor: pointer;
 }
@@ -128,7 +145,8 @@ ul {
 }
 
 .hide {
-	visibility: hidden;
+	filter: brightness(50%);
+	pointer-events: none;
 }
 
 .inactive {
@@ -353,8 +371,8 @@ ul {
 }
 
 .abc.enter img {
-	width: 27px;
-	margin-top: 10px;
+	width: 45px;
+	margin-top: 3px;
 }
 
 .abc.enter {
@@ -770,8 +788,8 @@ input[type="password"] {
 		width: 29px;
 	}
 	.abc.enter img {
-		margin-top: 8px;
-		width: 26px;
+		margin-top: 2px;
+		width: 40px;
 	}
 
 	.back,
@@ -912,8 +930,8 @@ input[type="password"] {
 	}
 
 	.abc.enter img {
-		margin-top: 6px;
-		width: 23px;
+		margin-top: 3px;
+		width: 30px;
 	}
 
 	.back,

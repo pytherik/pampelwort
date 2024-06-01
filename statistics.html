@@ -10,49 +10,61 @@
 </head>
 <body>
 <nav class="navbar">
-  <ul>
-    <li>
-      <a class="hideable" href="statistics.html">
-        <img class="nav-icon" src="images/icons/stats2.png" alt="" title="Statistik"/>
-        <span class="nav-item">
-            Statistik
-          </span>
-      </a>
-    </li>
-    <li>
-      <a href="highscore.html" class="nav-item">
-        <img class="nav-icon" src="images/icons/score2.png" alt="score" title="Highscore"/>
-        <span class="nav-item">
-            Highscore
-          </span>
-      </a>
-    </li>
-    <li>
+  <div class="nav-list">
+    <div class="nav-section">
+      <img id="burger-menu" class="nav-icon" src="images/icons/burger-white.png" alt="burger-menu">
+    </div>
+    <div class="nav-section">
       <a href="index.html" class="nav-item">
         <img class="nav-icon" src="images/icons/refresh2.png" alt="refresh" title="Neues Wort"/>
-        <span class="nav-item">
-            Neues Wort
-          </span>
       </a>
-    </li>
-    <li>
-      <img class="nav-icon inactive" src="images/icons/help3.png" alt="help" title="Info"/>
-      <span class="nav-item inactive">
-          Info
-        </span>
-    </li>
-    <li>
-      <img class="nav-icon inactive" src="images/icons/settings.png" title="Einstellungen" alt="Einstellungen"/>
-      <span class="nav-item inactive">
+    </div>
+    <div class="nav-section">
+      <img class="nav-icon logout" src="images/icons/logout2.png" alt="logout" title="Logout"/>
+    </div>
+  </div>
+</nav>
+<div class="nav-burger">
+  <div id="statistics" class="burger-section">
+    <a class="hideable" href="statistics.html">
+      <img class="nav-icon" src="images/icons/stats2.png" alt="" title="Statistik"/>
+      <span class="nav-item">
+            Statistik
+          </span>
+    </a>
+  </div>
+  <div class="burger-section">
+    <a href="highscore.html" class="nav-item">
+      <img class="nav-icon" src="images/icons/score2.png" alt="score" title="Highscore"/>
+      <span class="nav-item">
+            Highscore
+          </span>
+    </a>
+  </div>
+  <div class="burger-section">
+    <a href="index.html" class="nav-item">
+      <img class="nav-icon" src="images/icons/refresh2.png" alt="refresh" title="Neues Wort"/>
+      <span class="nav-item">
+            Neues Wort (F5)
+          </span>
+    </a>
+  </div>
+  <div id="settings" class="burger-section">
+    <img class="nav-icon" src="images/icons/settings.png" title="Einstellungen" alt="Einstellungen"/>
+    <span class="nav-item">
           Einstellungen
         </span>
-    </li>
-    <li>
-      <img class="nav-icon logout" src="images/icons/logout2.png" alt="logout" title="Logout"/>
-    </li>
-  </ul>
-</nav>
-
+  </div>
+  <div id="manual" class="burger-section">
+    <img class="nav-icon" src="images/icons/help3.png" alt="help" title="Info"/>
+    <span class="nav-item">
+          Info
+        </span>
+  </div>
+  <div class="burger-section">
+    <img class="nav-icon logout" src="images/icons/logout2.png" alt="logout" title="Logout"/>
+  </div>
+</div>
 <div id="anonymous">
   <div class="anonymous">
     <img src="images/anonym.jpg" alt="">

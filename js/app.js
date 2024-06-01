@@ -41,14 +41,26 @@ if (!localStorage.getItem("users")) {
 		num_letters: 0
 	};
 	localStorage.setItem("users", JSON.stringify(users));
-} 
+}
 
 users = JSON.parse(localStorage.getItem("users"));
 
+let displayNav = false;
+$('#burger-menu').click(() => {
+	$('.burger-section').css('display', displayNav ? 'none': 'flex');
+	displayNav = !displayNav;
+})
+
+$(document).click((e) => {
+	if(e.target.id !== 'burger-menu' && e.target.id !== 'settings' && e.target.id !== 'statistics'){
+	$('.burger-section').css('display', 'none');
+	displayNav = false;
+	}
+})
 // Start Session
 function startSession() {
 	if (!sessionStorage.getItem("userSession")) {
-		login();		
+		login();
 	} else {
 		session = JSON.parse(sessionStorage.getItem("userSession"));
 		userLoggedIn = session.name;
@@ -62,7 +74,7 @@ function startSession() {
 		const rank = getRanking(userLoggedIn);
 		const langSetting = users[userLoggedIn].lang;
 		let letterSetting = num_letters;
-		
+
 		if (users[userLoggedIn].num_letters === 0) {
 			letterSetting = "Zufall"
 		}
@@ -94,24 +106,24 @@ $('#settings').click(() => {
 		$('.settings-modal').css("display", "none");
 		location.reload();
 		return false;
-	})	
+	})
 });
 
 $('#settings-form').submit((e) => {
 	e.preventDefault();
 	const newLang = $('#lang-select').val();
-	const newNumLetters = parseInt($('#num-letter').val()); 
+	const newNumLetters = parseInt($('#num-letter').val());
 	users[userLoggedIn].lang = newLang;
 	users[userLoggedIn].num_letters = newNumLetters;
 	console.log(newLang, newNumLetters);
 	localStorage.setItem("users", JSON.stringify(users));
 	location.reload();
-}) 
+})
 
 // Login
 function login() {
 	$(".login-modal").css("display", "flex");
-	
+
 	$("#playNow").click(() => {
 		sessionStorage.setItem("userSession", JSON.stringify({name: 'Dingsbums'}));
 		startSession();
@@ -119,33 +131,32 @@ function login() {
 	loginForm.addEventListener("submit", (e) => {
 		e.preventDefault();
 		const date = new Date().toLocaleDateString("de-De");
-		
+
 		if (!logNameEl.value) {
 			$("#errorMessage").text("Anonym spielen:");
 			$("#errorMessage2").text("Button oben drücken!");
 			return false;
 		}
 		if (!users[logNameEl.value]) {
-			users[logNameEl.value] = { 
+			users[logNameEl.value] = {
 				name: logNameEl.value,
 				total_score: 0,
 				total_plays: 0,
 				date : date,
 				scores: [],
 				lang: "de1",
-				num_letters: 0		
+				num_letters: 0
 			};
 			localStorage.setItem("users", JSON.stringify(users));
 		}
-		
+
 		sessionStorage.setItem("userSession", JSON.stringify({name: logNameEl.value}));
 		startSession();
 	});
 }
 
 startSession();
-
-// get random word  
+// get random word
 function game() {
 	if (users[userLoggedIn].total_plays === 0) {
 		console.log("noScore")

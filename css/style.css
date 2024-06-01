@@ -62,7 +62,7 @@ body {
 
 .navbar {
 	width: 100%;
-	height: auto;
+	height: 35px;
 	background: var(--nav-background-color);
 	border-bottom: 2px solid var(--nav-border-color);
 	margin-bottom: 1.5rem;
@@ -81,6 +81,11 @@ ul {
 	list-style: none;
 }
 
+.ul-section {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
 .player {
 	font-size: 2.8rem;
 	font-weight: 500;
@@ -104,10 +109,10 @@ ul {
 .nav-item {
 	font-size: 1rem;
 	cursor: pointer;
-	text-align: center;
 }
 
 .nav-icon {
+	vertical-align: middle;
 	width: 1.3rem;
 	margin-right: .5rem;
 }

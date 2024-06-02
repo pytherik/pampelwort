@@ -228,23 +228,23 @@
 
 <div class="login-modal">
   <div class="register-container">
-    <div class="row-top">
-      <form id="playNow">
-        <button class="btn" type="submit" name="playNow">anonym spielen</button>
-      </form>
-    </div>
 
     <div id="login" class="register-row">
       <h2 class="reg-header">Login</h2>
       <form id="login-form">
         <p>
-          <label class="log" for="loginName">Spielername</label>
-          <input id="loginName" type="text" name="username">
+          <label class="log" for="loginName"></label>
+          <input id="loginName" type="text" name="username" placeholder="Spielername" />
           <span id="errorMessage" class="errorMessage"></span><br/>
           <span id="errorMessage2" class="errorMessage"></span>
         </p>
-        <button id="login-btn" class="btn" type="submit" name="loginButton">LOGIN</button>
+        <button id="login-btn" class="btn" type="submit" name="loginButton">Login</button>
       </form>
+      <div class="play-anonymous">
+        <form id="playNow">
+          <button class="btn" type="submit" name="playNow">anonym spielen</button>
+        </form>
+      </div>
     </div>
   </div>
 </div>

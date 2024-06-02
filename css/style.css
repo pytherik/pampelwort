@@ -647,7 +647,7 @@ select {
 	align-items: center;
 }
 
-.row-top {
+.play-anonymous {
 	display: flex;
 	justify-content: center;
 }
@@ -667,7 +667,7 @@ input[type="password"] {
 	font-size: 1.2rem;
 	background-color: transparent;
 	display: block;
-	margin-top: 10px;
+	margin-top: 48px;
 	padding-left: 4px;
 	color: #e9d5da;
 	border: none;
@@ -679,11 +679,11 @@ input[type="password"] {
 
 .btn {
 	width: 250px;
-	height: 30px;
-	font-size: 1.2rem;
+	height: 25px;
+	font-size: 1rem;
 	font-weight: 400;
-	letter-spacing: 5px;
-	margin: 10px auto;
+	letter-spacing: 2px;
+	margin: 10px auto 0;
 	color: #e9d5da;
 	background-color: transparent;
 	border: 1px solid #6d8874;

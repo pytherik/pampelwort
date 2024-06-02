@@ -11,6 +11,8 @@ let userLoggedIn;
 let session;
 let users = {};
 let langArray;
+let word;
+let limit;
 
 let userInput = "";
 let round = 1;
@@ -25,23 +27,15 @@ const myLangs = {
   lat: "lat"
 }
 
+// Sleep function
+function sleep(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 // check session and local storage
 if (sessionStorage.getItem("userSession")) {
   session = JSON.parse(sessionStorage.getItem("userSession"));
 }
-// if (!localStorage.getItem("users")) {
-// 	users["Dingsbums"] = {
-// 		name: "Dingsbums",
-// 		total_score: 0,
-// 		total_plays: 0,
-// 		date : date,
-// 		scores: [],
-// 		lang: "de1",
-// 		num_letters: 0
-// 	};
-// 	localStorage.setItem("users", JSON.stringify(users));
-// }
 
 if (localStorage.getItem('users')) {
   users = JSON.parse(localStorage.getItem("users"));
@@ -156,211 +150,206 @@ function login() {
 
 startSession();
 
+// Set dimension of Grid
+function checkLimit(limit) {
+	if (limit < 8) {
+		for (let i = 0; i < (8 - limit); i++) {
+			$(".letter" + (7 - i)).css("display", "none");
+		}
+	}
+}
+
+
 // get random word
 function game() {
   if (users[userLoggedIn].total_plays === 0) {
-    console.log("noScore")
     $('.hideable').addClass('hide')
   } else {
     $('.hideable').removeClass('hide')
   }
 
   let rand = Math.floor(Math.random() * langArray.length);
-  const word = langArray[rand];
-  const limit = word.length;
-
-  // Set dimension of Grid
-  function checkLimit(limit) {
-    if (limit < 8) {
-      for (let i = 0; i < (8 - limit); i++) {
-        $(".letter" + (7 - i)).css("display", "none");
-      }
-    }
-  }
+  word = langArray[rand];
+  limit = word.length;
 
   checkLimit(limit);
 
-  // Grid letter insertion
-  function insertLetter(key) {
-    if (userInput.length < limit && (key).match(/^[a-zA-ZäöüÄÖÜ]$/)) {
-      let i = userInput.length % limit;
-      userInput += key;
-      $(".lb" + round + ".letter" + i).text(key.toUpperCase());
-    } else if (key === "Backspace" && userInput.length > 0) {
-      userInput = userInput.slice(0, -1);
-      let i = (userInput.length) % limit;
-      $(".lb" + round + ".letter" + i).text("");
-    } else if (userInput.length === limit && key === "Enter") {
-      isInWordlist(userInput).then();
-      userInput = ""
-      round++
-    }
-  }
-
-  // User input Keyboard
-  $(document).on("keydown", function (e) {
-    insertLetter(e.key);
-  });
-
-  // User input touch, click
-  $(".abc").on("click", function () {
-    if (this.innerHTML.slice(23, 28) === "enter") {
-      let key = "Enter";
-      insertLetter(key)
-    } else if (this.innerHTML.slice(23, 27) === "back") {
-      let key = "Backspace"
-      insertLetter(key)
-    } else {
-      let key = this.innerHTML;
-      insertLetter(key)
-    }
-  });
-
-  // Sleep function
-  function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-  // Validation, flip colored letters
-  async function showSuccess(guess) {
-    await sleep(100);
-    let guessL = guess.toLowerCase().split('');
-    let guessLength = guess.length;
-    let green = [];
-    let yellow = [];
-    for (let i = 0; i < guessLength; i++) {
-      let regExLetter = new RegExp(guess[i], 'ig');
-      if (guessL[i] === word[i].toLowerCase()) {
-        $(".lb" + (round - 1) + ".letter" + i).slideUp(250).addClass("checked exact").slideDown(250);
-        $("." + guessL[i]).css("backgroundColor", "#6d887488");
-        green.push(guessL[i]);
-        await sleep(450);
-        continue;
-      } else if (word.match(regExLetter)) {
-        let gLength = countOccurency(guessL, guessL[i]);
-        let wLength = word.match(regExLetter).length;
-        if (gLength < wLength || gLength === wLength) {
-          $(".lb" + (round - 1) + ".letter" + i).slideUp(250).addClass("checked okay").slideDown(250);
-          if (!green.includes(guessL[i])) {
-            $("." + guessL[i]).css("backgroundColor", "#d7a86e88");
-            yellow.push(guessL[i]);
-          }
-          await sleep(450);
-          continue;
-        } else {
-          $(".lb" + (round - 1) + ".letter" + i).slideUp(250).addClass("checked nope").slideDown(250);
-          if (!green.includes(guessL[i]) && !yellow.includes(guessL[i])) {
-            $("." + guessL[i]).css("backgroundColor", "#111");
-          }
-          guessL[i] = "-";
-        }
-      } else {
-        $(".lb" + (round - 1) + ".letter" + i).slideUp(250).addClass("checked nope").slideDown(250);
-        $("." + guessL[i]).css("backgroundColor", "#111");
-      }
-      await sleep(450);
-    }
-  }
-
-  // Wordlist incluedes guessed word ?
-  async function isInWordlist(text) {
-    text = text[0].toUpperCase() + text.slice(1).toLowerCase();
-    if (text !== word) {
-      if (langArray.includes(text)) {
-        // Global j = 1
-        if (round === 6) {
-          lastRound(text);
-        } else {
-          showSuccess(text).then();
-        }
-      } else {
-        await sleep(100);
-        for (let k = 0; k < limit; k++) {
-          $(`.lb${round - 1}.letter${k}`).text('').fadeOut(200).fadeIn(200);
-          await sleep(50);
-        }
-        round--;
-      }
-    } else {
-      showSuccess(word).then();
-      await sleep(word.length * 480)
-      const newScore = word.length * (8 - round);
-      $('.keyboard-container').css('visibility', 'hidden');
-      score(newScore, round);
-    }
-  }
-
-  //  Last guess was worng
-  function lastRound(guess) {
-    const guessL = guess.toLowerCase().split("");
-    const guessLength = guess.length;
-    for (let i = 0; i < guessLength; i++) {
-      if (guessL[i] === word[i].toLowerCase()) {
-        $(".lb" + (round) + ".letter" + i).addClass("exact");
-        $("." + guessL[i]).css("backgroundColor", "#6d8874");
-      } else {
-        $(".lb" + (round) + ".letter" + i).text(word[i].toUpperCase()).addClass("lose");
-      }
-    }
-    score(-guessLength, round);
-  }
-
-  function countOccurency(word, letter) {
-    let num = 0;
-    for (const item in word) {
-      if (word[item] === letter) {
-        num++;
-      }
-    }
-    return num;
-  }
-
-  // Game Over
-  function score(points, tries) {
-    if (points > 0) {
-      $('.success-container.win').slideDown();
-      rand = Math.floor(Math.random() * comments.length);
-      const comment = comments[rand].lob;
-      $('.keyboard-container').css('visibility', 'hidden');
-      $('#win').text(comment);
-      $('#plus').text(`${points} Punkte für dich!`);
-      tries--
-    } else {
-      $('.success-container.lose').slideDown();
-      rand = Math.floor(Math.random() * comments.length);
-      const comment = comments[rand].tadel;
-      $('.keyboard-container').css('visibility', 'hidden');
-      $('#lose').text(comment);
-      $('#minus').text(`Du kriegst ${Math.abs(points)} Punkte abgezogen!`);
-      tries++
-    }
-    users[userLoggedIn].total_plays += 1;
-    users[userLoggedIn].total_score += points;
-
-    users[userLoggedIn].scores.push([points, tries, word, date]);
-    localStorage.setItem('users', JSON.stringify(users));
-
-    $('.success-container').click(() => {
-      location.reload();
-    });
-    $(document).on('keydown', function () {
-      location.reload();
-    });
-  }
-
-  // Manual show/hide
-  $('#manual').click(() => {
-    if (manualDisplay === false) {
-      $('.manual-container').slideDown();
-      manualDisplay = true;
-    } else {
-      $('.manual-container').slideUp().click(() => {
-        $('.manual-container').slideUp();
-      });
-      manualDisplay = false;
-    }
-  });
 }
+
+// User input Keyboard
+$(document).on("keydown", function (e) {
+	insertLetter(e.key);
+});
+
+// User input touch, click
+$(".abc").on("click", function () {
+	if (this.innerHTML.slice(23, 28) === "enter") {
+		insertLetter("Enter")
+	} else if (this.innerHTML.slice(23, 27) === "back") {
+		insertLetter("Backspace")
+	} else {
+		insertLetter(this.innerHTML)
+	}
+});
+
+//  Last guess was worng
+function lastRound(guess) {
+	const guessL = guess.toLowerCase().split("");
+	const guessLength = guess.length;
+	for (let i = 0; i < guessLength; i++) {
+		if (guessL[i] === word[i].toLowerCase()) {
+			$(".lb" + (round) + ".letter" + i).addClass("exact");
+			$("." + guessL[i]).css("backgroundColor", "#6d8874");
+		} else {
+			$(".lb" + (round) + ".letter" + i).text(word[i].toUpperCase()).addClass("lose");
+		}
+	}
+	score(-guessLength, round, word);
+}
+
+ // Validation, flip colored letters
+async function showSuccess(guess) {
+	await sleep(100);
+	let guessL = guess.toLowerCase().split('');
+	let guessLength = guess.length;
+	let green = [];
+	let yellow = [];
+	for (let i = 0; i < guessLength; i++) {
+		let regExLetter = new RegExp(guess[i], 'ig');
+		if (guessL[i] === word[i].toLowerCase()) {
+			$(".lb" + (round - 1) + ".letter" + i).slideUp(250).addClass("checked exact").slideDown(250);
+			$("." + guessL[i]).css("backgroundColor", "#6d887488");
+			green.push(guessL[i]);
+			await sleep(450);
+			continue;
+		} else if (word.match(regExLetter)) {
+			let gLength = countOccurency(guessL, guessL[i]);
+			let wLength = word.match(regExLetter).length;
+			if (gLength < wLength || gLength === wLength) {
+				$(".lb" + (round - 1) + ".letter" + i).slideUp(250).addClass("checked okay").slideDown(250);
+				if (!green.includes(guessL[i])) {
+					$("." + guessL[i]).css("backgroundColor", "#d7a86e88");
+					yellow.push(guessL[i]);
+				}
+				await sleep(450);
+				continue;
+			} else {
+				$(".lb" + (round - 1) + ".letter" + i).slideUp(250).addClass("checked nope").slideDown(250);
+				if (!green.includes(guessL[i]) && !yellow.includes(guessL[i])) {
+					$("." + guessL[i]).css("backgroundColor", "#111");
+				}
+				guessL[i] = "-";
+			}
+		} else {
+			$(".lb" + (round - 1) + ".letter" + i).slideUp(250).addClass("checked nope").slideDown(250);
+			$("." + guessL[i]).css("backgroundColor", "#111");
+		}
+		await sleep(450);
+	}
+}
+
+// Wordlist incluedes guessed word ?
+async function isInWordlist(text) {
+	text = text[0].toUpperCase() + text.slice(1).toLowerCase();
+	if (text !== word) {
+		if (langArray.includes(text)) {
+			if (round === 6) {
+				lastRound(text);
+			} else {
+				showSuccess(text).then();
+			}
+		} else {
+			await sleep(100);
+			for (let k = 0; k < limit; k++) {
+				$(`.lb${round - 1}.letter${k}`).text('').fadeOut(200).fadeIn(200);
+				await sleep(50);
+			}
+			round--;
+		}
+	} else {
+		showSuccess(word).then();
+		await sleep(word.length * 480)
+		const newScore = word.length * (8 - round);
+		$('.keyboard-container').css('visibility', 'hidden');
+		score(newScore, round);
+	}
+}
+
+// Grid letter insertion
+function insertLetter(key) {
+	if (userInput.length < limit && (key).match(/^[a-zA-ZäöüÄÖÜ]$/)) {
+		let i = userInput.length % limit;
+		userInput += key;
+		$(".lb" + round + ".letter" + i).text(key.toUpperCase());
+	} else if (key === "Backspace" && userInput.length > 0) {
+		userInput = userInput.slice(0, -1);
+		let i = (userInput.length) % limit;
+		$(".lb" + round + ".letter" + i).text("");
+	} else if (userInput.length === limit && key === "Enter") {
+		isInWordlist(userInput).then();
+		userInput = ""
+		round++
+	}
+}
+
+// Game Over
+function score(points, tries, word) {
+	if (points > 0) {
+		$('.success-container.win').slideDown();
+		const rand = Math.floor(Math.random() * comments.length);
+		const comment = comments[rand].lob;
+		$('.keyboard-container').css('visibility', 'hidden');
+		$('#win').text(comment);
+		$('#plus').text(`${points} Punkte für dich!`);
+		tries--
+	} else {
+		$('.success-container.lose').slideDown();
+		const rand = Math.floor(Math.random() * comments.length);
+		const comment = comments[rand].tadel;
+		$('.keyboard-container').css('visibility', 'hidden');
+		$('#lose').text(comment);
+		$('#minus').text(`Du kriegst ${Math.abs(points)} Punkte abgezogen!`);
+		tries++
+	}
+	users[userLoggedIn].total_plays += 1;
+	users[userLoggedIn].total_score += points;
+
+	users[userLoggedIn].scores.push([points, tries, word, date]);
+	localStorage.setItem('users', JSON.stringify(users));
+	closeOnClickOrKey();
+}
+
+function countOccurency(word, letter) {
+	let num = 0;
+	for (const item in word) {
+		if (word[item] === letter) {
+			num++;
+		}
+	}
+	return num;
+}
+
+function closeOnClickOrKey() {
+	$(document).click(() => {
+		location.reload();
+	});
+	$(document).on('keydown', function () {
+		location.reload();
+	});
+}
+
+// Manual show/hide
+$('#manual').click(() => {
+	if (manualDisplay === false) {
+		$('.manual-container').slideDown();
+		manualDisplay = true;
+	} else {
+		$('.manual-container').slideUp().click(() => {
+			$('.manual-container').slideUp();
+		});
+		manualDisplay = false;
+	}
+});
 
 // Highscore
 function getScore() {
@@ -414,7 +403,6 @@ function getStatistics() {
 	if(userLoggedIn) {
 		result = users[userLoggedIn].scores ?? null;
 	}
-  console.log(result)
   if (result.length > 0) {
 
     for (const game of result) {

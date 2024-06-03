@@ -368,8 +368,8 @@ a {
 }
 
 .abc.back img {
-	margin-top: 10px;
-	width: 30px;
+	margin-top: 7px;
+	width: 35px;
 }
 
 .abc.enter img {
@@ -510,7 +510,7 @@ a {
 	border-radius: 5px;
 	transform: rotate(180deg);
 	margin: 0 auto;
-	background-color: transparent;
+	background-color: #aa5522;
 }
 
 .perc,

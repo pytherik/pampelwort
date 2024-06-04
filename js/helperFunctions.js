@@ -13,13 +13,10 @@ export function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// Set dimension of Grid
-export function checkLimit(limit) {
-  if (limit < 8) {
-    for (let i = 0; i < (8 - limit); i++) {
+export function cutGridToWordLength(wordLength) {
+    for (let i = 0; i < (8 - wordLength); i++) {
       $(".letter" + (7 - i)).css("display", "none");
     }
-  }
 }
 
 export function showWinnerComment(points) {
@@ -48,4 +45,12 @@ export function countOccurency(word, letter) {
     }
   }
   return num;
+}
+
+export function sortUsers(users) {
+  return Object.keys(users)
+    .map((v) => [users[v].total_score, users[v].name])
+    .sort(function (a, b) {
+      return b[0] - a[0];
+    });
 }

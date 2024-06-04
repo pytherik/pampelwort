@@ -180,6 +180,7 @@ a {
 
 .grid-container {
 }
+
 .score-container,
 .statistics-container {
 	background-color: var(--score-container-color);
@@ -705,22 +706,9 @@ input[type="password"] {
 	color: #ff8080;
 }
 
-
-
-
-
 @media screen and (max-width: 1600px) {
-
-	.navbar {
-		padding: 0 10px;
-	}
-
 	.nav-icon {
 		width: 1.2em;
-	}
-
-	.nav-icon-bg {
-		width: 1.3em;
 	}
 
 	.container {
@@ -776,6 +764,7 @@ input[type="password"] {
 		font-size: 2.5rem;
 		font-weight: 500;
 	}
+
 	.checked {
 		width: 62px;
 		height: 62px;
@@ -789,10 +778,12 @@ input[type="password"] {
 		height: 55px;
 		font-size: 1.7rem;
 	}
+
 	.abc.back img {
 		margin-top: 6px;
 		width: 29px;
 	}
+
 	.abc.enter img {
 		margin-top: 2px;
 		width: 40px;
@@ -819,6 +810,7 @@ input[type="password"] {
 	.player {
 		font-size: 2.3rem;
 	}
+
 	.big-header {
 		font-size: 2rem;
 	}
@@ -827,6 +819,7 @@ input[type="password"] {
 	.plays {
 		font-size: 1.5rem;
 	}
+
 	.rank {
 		width: 100%;
 		padding-top: 8px;
@@ -851,7 +844,6 @@ input[type="password"] {
 		align-items: center;
 	}
 
-
 	.tries-bar {
 		width: 14.5%;
 		height: 70%;
@@ -868,7 +860,6 @@ input[type="password"] {
 		font-size: 1rem;
 		margin-bottom: 5px;
 	}
-
 
 	.numTries small {
 		font-size: 0.6rem;
@@ -887,11 +878,9 @@ input[type="password"] {
 		padding: 0 10px;
 		font-size: 1rem;
 	}
-
 }
 
 @media screen and (max-height: 800px) {
-
 	.navbar {
 		height: 30px;
 	}
@@ -903,7 +892,6 @@ input[type="password"] {
 	.header {
 		font-size: 1.8rem;
 	}
-
 
 	.player {
 		font-size: 1.8rem;
@@ -1032,7 +1020,6 @@ input[type="password"] {
 		width: 80%;
 		left: 10%;
 	}
-
 }
 
 @media screen and (max-width: 700px) {
@@ -1122,6 +1109,7 @@ input[type="password"] {
 	.player {
 		font-size: 2rem;
 	}
+
 	.container {
 		width: 100%;
 	}
@@ -1130,6 +1118,7 @@ input[type="password"] {
 		width: 50%;
 		background-color: #6d887466;
 	}
+
 	.nav-list {
 		padding: .1rem 0;
 	}
@@ -1154,10 +1143,12 @@ input[type="password"] {
 		height: 35px;
 		font-size: 1.1rem;
 	}
+
 	.abc.back img {
 		margin-top: 1px;
 		width: 24px;
 	}
+
 	.abc.enter img {
 		margin-top: 2px;
 		width: 21px;
@@ -1174,6 +1165,7 @@ input[type="password"] {
 		top: 15%;
 		padding-bottom: 10%;
 	}
+
 	.success-container {
 		width: 100vw;
 		left: 0;

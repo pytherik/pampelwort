@@ -408,7 +408,7 @@ function getStatistics() {
   return null;
 }
 
-$('#statistics').onload = getStatistics();
+$('.statistics').onload = getStatistics();
 
 
 function getRanking(name) {
@@ -453,17 +453,23 @@ showTotal.click(function () {
 });
 
 // Manual show/hide
-$('#manual').click(() => {
+$('.manual').click(() => {
 	if (manualDisplay === false) {
 		$('.manual-container').slideDown();
-		manualDisplay = true;
 	} else {
-		$('.manual-container').slideUp().click(() => {
-			$('.manual-container').slideUp();
+    $('.manual-container').slideUp().click(() => {
+      $('.manual-container').slideUp();
 		});
-		manualDisplay = false;
 	}
+  manualDisplay = !manualDisplay;
 });
+
+$('.manual-container').click(() => {
+		$('.manual-container').slideUp().click(() => {
+      $('.manual-container').slideUp();
+      manualDisplay = false;
+    })
+})
 
 $(".logout").click(() => {
   console.log("logout clicked");

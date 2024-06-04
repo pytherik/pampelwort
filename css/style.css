@@ -115,6 +115,7 @@ a {
 }
 
 .player-settings {
+	cursor: pointer;
 	font-size: .8rem;
 	margin: .5em 0;
 	padding: 0 .5rem;
@@ -123,19 +124,23 @@ a {
 }
 
 .nav-item {
+	cursor: pointer;
 	margin-right: 2rem;
 	font-size: 1rem;
-	cursor: pointer;
 }
 
+.nav-item:hover {
+	filter: brightness(150%);
+}
 .nav-icon {
+	cursor: pointer;
 	vertical-align: middle;
 	width: 1.3rem;
 	margin-right: .5rem;
 }
 
 .nav-icon:hover {
-	cursor: pointer;
+	filter: brightness(150%);
 	animation: turnaround 1s;
 }
 
@@ -748,7 +753,6 @@ input[type="password"] {
 
 	.player {
 		font-size: 1.8rem;
-		margin: 0 0 .5em;
 	}
 
 	.text {
@@ -1117,14 +1121,21 @@ input[type="password"] {
 @media (max-width: 500px) {
 	.player {
 		font-size: 2rem;
-		margin-bottom: 15%;
 	}
 	.container {
 		width: 100%;
 	}
 
+	.nav-burger {
+		width: 50%;
+		background-color: #6d887466;
+	}
+	.nav-list {
+		padding: .1rem 0;
+	}
+
 	.nav-icon {
-		margin-left: 1rem;
+		margin-left: 0;
 	}
 
 	.letter-box {

@@ -78,14 +78,14 @@ function startSession() {
       letterSetting = "Zufall"
     }
     $(".player").text(userLoggedIn);
-    $(".player-rank").text(`${rank}. Platz`);
+    $(".player-highscore").text(`${rank}. Platz`);
     $(".player-settings").html(`Sprache: <strong>${langSetting}</strong> | Buchstaben: <strong>${letterSetting}</strong>`);
     $(".login-modal").css("display", "none");
     game();
   }
 }
 
-$('#settings').click(() => {
+$('.settings').click(() => {
   $('.settings-modal').css("display", "flex");
   for (let i = minLength; i <= maxLength; i++) {
     if (users[userLoggedIn].num_letters === i) {
@@ -200,8 +200,6 @@ function lastRound(guess) {
 
  // Validation, flip colored letters
 async function showSuccess(guess) {
-	console.log(guess);
-	console.log(word);
 	await sleep(100);
 	const guessArray = guess.toLowerCase().split('');
 	const guessLength = guess.length;

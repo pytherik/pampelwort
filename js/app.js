@@ -362,7 +362,7 @@ function getStatistics() {
     $('.entry_date').text(users[userLoggedIn].date);
 
     $('.big-header2').text(`${score} Punkte`);
-    $('.plays').text(`${total} Spiele`);
+    $('.plays').text(`${total} ${total === 1 ? 'Spiel': 'Spiele'}`);
 
     $('.try' + actualTries).css('backgroundColor', '#5FD068');
 
